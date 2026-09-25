@@ -1,0 +1,14 @@
+package LOANS.services.notification
+
+enum class NotificationType {
+    LOAN_SUBMITTED,
+    LOAN_UNDER_REVIEW,
+    LOAN_APPROVED,
+    LOAN_REJECTED,
+    LOAN_DISBURSED,
+    LOAN_REPAID,
+    LOAN_CANCELLED,
+    ROLE_CHANGED,
+    ACCOUNT_DISABLED,
+    ACCOUNT_LOCKED
+}

@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-brand-50:  #effefb;
+  --color-brand-100: #c7fff0;
+  --color-brand-200: #90fde5;
+  --color-brand-300: #52f4d7;
+  --color-brand-400: #1ee0c0;
+  --color-brand-500: #14b8a6;
+  --color-brand-600: #0d9488;
+  --color-brand-700: #0f766e;
+  --color-brand-800: #115e59;
+  --color-brand-900: #134e4a;
+
+  --color-accent-300: #fcd34d;
+  --color-accent-400: #fbbf24;
+  --color-accent-500: #f59e0b;
+  --color-accent-600: #d97706;
+
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-jakarta), var(--font-inter), system-ui, sans-serif;
+
+  --animate-shimmer: shimmer 1.8s linear infinite;
+  --animate-float: float 5s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2s ease-out infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+@keyframes pulse-ring {
+  0%   { transform: scale(0.9); opacity: 0.7; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+@layer base {
+  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body {
+    background: #f8fafc;
+    color: #0f172a;
+    font-family: var(--font-sans);
+  }
+  * { border-color: theme(colors.slate.200); }
+  ::selection { background: theme(colors.teal.200); color: theme(colors.teal.900); }
+}
+
+@utility tabular-nums { font-variant-numeric: tabular-nums; }
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: theme(colors.slate.300) transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PRINT STYLES — clean output for reports and paper archives
+   ═══════════════════════════════════════════════════════════ */
+@media print {
+  /* Hide interactive chrome */
+  aside,
+  nav,
+  header,
+  button,
+  [data-print-hide],
+  [role="dialog"] {
+    display: none !important;
+  }
+
+  /* Reset the shell: no fixed positioning, no overflow clipping */
+  body,
+  html {
+    background: white !important;
+    color: black !important;
+    overflow: visible !important;
+  }
+
+  main,
+  main > div {
+    overflow: visible !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Every card becomes a clean bordered block */
+  .rounded-2xl,
+  .rounded-3xl,
+  .rounded-xl {
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    border: 1px solid #cbd5e1 !important;
+    page-break-inside: avoid;
+    background: white !important;
+  }
+
+  /* Tables: no alternate-row shading, keep gridlines */
+  table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+  }
+  th, td {
+    border: 1px solid #94a3b8 !important;
+    padding: 6px 8px !important;
+    color: black !important;
+    background: white !important;
+    font-size: 10pt !important;
+  }
+  thead th {
+    background: #f1f5f9 !important;
+    font-weight: 600 !important;
+  }
+
+  /* Kill gradients and colored panels */
+  [class*="bg-gradient"],
+  [class*="from-"],
+  [class*="to-"],
+  [class*="via-"] {
+    background: white !important;
+    background-image: none !important;
+    color: black !important;
+  }
+
+  /* Force all text readable */
+  * {
+    color: #0f172a !important;
+    text-shadow: none !important;
+  }
+
+  /* Buttons look like plain boxes if they sneak through */
+  button {
+    border: 1px solid #94a3b8 !important;
+    padding: 4px 8px !important;
+  }
+
+  /* Links: show URL after text (only if you want it)
+     disable by default; uncomment if needed */
+  /* a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 8pt;
+    color: #64748b;
+  } */
+
+  /* Page break hints */
+  .print-page-break {
+    page-break-before: always;
+  }
+  tr, .card {
+    page-break-inside: avoid;
+  }
+
+  /* Bigger readable header for printouts */
+  h1 { font-size: 20pt !important; margin-bottom: 8pt !important; }
+  h2 { font-size: 14pt !important; margin-top: 14pt !important; }
+
+  /* Add a printed document header on every page */
+  @page {
+    margin: 15mm 15mm 15mm 15mm;
+  }
+}

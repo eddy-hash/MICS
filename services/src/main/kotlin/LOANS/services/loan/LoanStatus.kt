@@ -1,0 +1,6 @@
+package LOANS.services.loan
+
+enum class LoanStatus {
+    PENDING, UNDER_REVIEW, APPROVED, REJECTED,
+    DISBURSED, REPAID, DEFAULTED, CANCELLED
+}

@@ -2,6 +2,7 @@
 import type { ReactNode } from 'react';
 import { Sidebar } from './Sidebar';
 import { Navbar } from './Navbar';
+import { PageTransition } from './PageTransition';
 import type { Role } from '@/lib/types';
 
 interface AppShellProps {
@@ -19,7 +20,7 @@ export function AppShell({ children, email, roles, permissions }: AppShellProps)
         <Navbar email={email} roles={roles} permissions={permissions} />
         <main className="flex-1 overflow-y-auto">
           <div className="mx-auto w-full max-w-7xl px-4 py-6 md:px-6 md:py-8">
-            {children}
+            <PageTransition>{children}</PageTransition>
           </div>
         </main>
       </div>

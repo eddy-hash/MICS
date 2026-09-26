@@ -1,4 +1,5 @@
 'use client';
+
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -15,19 +16,25 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { LoanStatusBadge } from '@/components/ui/LoanStatusBadge';
 import { SkeletonTable } from '@/components/ui/Skeleton';
 import { PageHeader } from '@/components/ui/PageHeader';
+import { Select } from '@/components/ui/Select';
 import { ExportBundle } from '@/components/ui/ExportBundle';
+import { formatMoney, formatDateShort, formatPercent } from '@/lib/format';
 import { dateLong, money, type PdfOptions } from '@/lib/pdf';
 import type { CsvColumn } from '@/lib/csv';
-import { PrintButton } from '@/components/ui/PrintButton';
-import { Select } from '@/components/ui/Select';
-import { formatMoney, formatDateShort, formatPercent } from '@/lib/format';
 import type { Loan, LoanStatus, Paged } from '@/lib/types';
 import { STATUS_LABEL } from '@/lib/types';
 
 type ViewMode = 'table' | 'grid';
 
 const STATUSES: (LoanStatus | 'ALL')[] = [
-  'ALL', 'PENDING', 'UNDER_REVIEW', 'APPROVED', 'DISBURSED', 'REPAID', 'REJECTED', 'CANCELLED',
+  'ALL',
+  'PENDING',
+  'UNDER_REVIEW',
+  'APPROVED',
+  'DISBURSED',
+  'REPAID',
+  'REJECTED',
+  'CANCELLED',
 ];
 
 export default function LoansPage() {
@@ -40,6 +47,7 @@ export default function LoansPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [total, setTotal] = useState(0);
 
+  // Restore view preference
   useEffect(() => {
     const saved = (localStorage.getItem('loans-view') as ViewMode) ?? 'table';
     setView(saved);
@@ -50,6 +58,7 @@ export default function LoansPage() {
     localStorage.setItem('loans-view', v);
   }
 
+  // Load data whenever page changes
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
@@ -61,10 +70,15 @@ export default function LoansPage() {
         setTotalPages(d.totalPages ?? 1);
         setTotal(d.totalElements ?? 0);
       })
-      .finally(() => { if (!cancelled) setLoading(false); });
-    return () => { cancelled = true; };
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [page]);
 
+  // Client-side filter by status + search
   const filtered = useMemo(() => {
     return loans.filter((l) => {
       if (filter !== 'ALL' && l.status !== filter) return false;
@@ -73,7 +87,7 @@ export default function LoansPage() {
     });
   }, [loans, filter, q]);
 
-  // ─── Export helpers ───
+  // ─── CSV columns ───
   const csvColumns: CsvColumn<Loan>[] = [
     { header: 'Reference', value: (l) => l.reference },
     { header: 'Amount', value: (l) => l.amount },
@@ -85,6 +99,7 @@ export default function LoansPage() {
     { header: 'Purpose', value: (l) => l.purpose ?? '' },
   ];
 
+  // ─── PDF builder ───
   function buildLoansPdf(): PdfOptions {
     return {
       header: {
@@ -108,22 +123,29 @@ export default function LoansPage() {
     };
   }
 
-
   return (
     <div>
       <PageHeader
         title="My Loans"
         description={`${total} total application${total === 1 ? '' : 's'}`}
-        actions={<PrintButton documentTitle={`NaedCredit-Loans-${new Date().toISOString().slice(0, 10)}`} />}
-      />
-
-      <div className="hidden">{
-          <Link href="/loans/new">
-            <Button leftIcon={<PlusIcon className="h-4 w-4" />}>Apply for a loan</Button>
-          </Link>
+        actions={
+          <div className="flex items-center gap-2">
+            <ExportBundle<Loan>
+              filename="naedcredit-my-loans"
+              printTitle={`NaedCredit-Loans-${new Date().toISOString().slice(0, 10)}`}
+              csv={{ rows: filtered, columns: csvColumns }}
+              pdf={buildLoansPdf}
+            />
+            <Link href="/loans/new">
+              <Button leftIcon={<PlusIcon className="h-4 w-4" />}>
+                Apply for a loan
+              </Button>
+            </Link>
+          </div>
         }
       />
 
+      {/* ─── Filter bar ─── */}
       <div className="mb-5 flex flex-wrap items-center gap-3">
         <div className="relative flex-1 min-w-[220px]">
           <MagnifyingGlassIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -131,9 +153,10 @@ export default function LoansPage() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search by reference…"
-            className="h-10 w-full rounded-lg border border-slate-300 bg-white pl-9 pr-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30"
+            className="h-10 w-full rounded-lg border border-slate-300 bg-white pl-9 pr-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
           />
         </div>
+
         <div className="w-48">
           <Select
             value={filter}
@@ -146,17 +169,26 @@ export default function LoansPage() {
             ))}
           </Select>
         </div>
-        <div className="flex rounded-lg border border-slate-300 bg-white p-0.5">
+
+        <div className="flex rounded-lg border border-slate-300 bg-white p-0.5 dark:border-slate-700 dark:bg-slate-900">
           <button
             onClick={() => changeView('table')}
-            className={`rounded-md p-2 transition ${view === 'table' ? 'bg-brand-50 text-brand-700' : 'text-slate-500 hover:bg-slate-50'}`}
+            className={`rounded-md p-2 transition ${
+              view === 'table'
+                ? 'bg-brand-50 text-brand-700 dark:bg-brand-500/10 dark:text-brand-300'
+                : 'text-slate-500 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'
+            }`}
             aria-label="Table view"
           >
             <TableCellsIcon className="h-4 w-4" />
           </button>
           <button
             onClick={() => changeView('grid')}
-            className={`rounded-md p-2 transition ${view === 'grid' ? 'bg-brand-50 text-brand-700' : 'text-slate-500 hover:bg-slate-50'}`}
+            className={`rounded-md p-2 transition ${
+              view === 'grid'
+                ? 'bg-brand-50 text-brand-700 dark:bg-brand-500/10 dark:text-brand-300'
+                : 'text-slate-500 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'
+            }`}
             aria-label="Grid view"
           >
             <Squares2X2Icon className="h-4 w-4" />
@@ -164,6 +196,7 @@ export default function LoansPage() {
         </div>
       </div>
 
+      {/* ─── Content ─── */}
       {loading ? (
         <SkeletonTable rows={6} />
       ) : filtered.length === 0 ? (
@@ -186,39 +219,47 @@ export default function LoansPage() {
       ) : view === 'table' ? (
         <Card padded={false} className="overflow-hidden">
           <table className="w-full">
-            <thead className="bg-slate-50">
+            <thead className="bg-slate-50 dark:bg-slate-800">
               <tr>
                 {['Reference', 'Amount', 'Term', 'Rate', 'Status', 'Submitted'].map((h) => (
-                  <th key={h} className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500">
+                  <th
+                    key={h}
+                    className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500"
+                  >
                     {h}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {filtered.map((l) => (
                 <motion.tr
                   key={l.id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="cursor-pointer transition hover:bg-brand-50/30"
+                  className="cursor-pointer transition hover:bg-brand-50/30 dark:hover:bg-brand-500/5"
                 >
                   <td className="px-5 py-3.5">
-                    <Link href={`/loans/${l.id}`} className="font-mono text-sm font-medium text-slate-900 hover:text-brand-700">
+                    <Link
+                      href={`/loans/${l.id}`}
+                      className="font-mono text-sm font-medium text-slate-900 hover:text-brand-700 dark:text-white dark:hover:text-brand-400"
+                    >
                       {l.reference}
                     </Link>
                   </td>
-                  <td className="px-5 py-3.5 text-sm tabular-nums text-slate-700">
+                  <td className="px-5 py-3.5 text-sm tabular-nums text-slate-700 dark:text-slate-300">
                     {formatMoney(l.amount, l.currency)}
                   </td>
-                  <td className="px-5 py-3.5 text-sm text-slate-600">{l.termMonths} mo</td>
-                  <td className="px-5 py-3.5 text-sm tabular-nums text-slate-600">
+                  <td className="px-5 py-3.5 text-sm text-slate-600 dark:text-slate-400">
+                    {l.termMonths} mo
+                  </td>
+                  <td className="px-5 py-3.5 text-sm tabular-nums text-slate-600 dark:text-slate-400">
                     {formatPercent(l.interestRate, 2)}
                   </td>
                   <td className="px-5 py-3.5">
                     <LoanStatusBadge status={l.status} />
                   </td>
-                  <td className="px-5 py-3.5 text-xs text-slate-500">
+                  <td className="px-5 py-3.5 text-xs text-slate-500 dark:text-slate-500">
                     {formatDateShort(l.submittedAt)}
                   </td>
                 </motion.tr>
@@ -230,20 +271,22 @@ export default function LoansPage() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((l) => (
             <Link key={l.id} href={`/loans/${l.id}`}>
-              <Card className="h-full transition hover:border-brand-300 hover:shadow-md">
+              <Card className="h-full transition hover:border-brand-300 hover:shadow-md dark:hover:border-brand-700">
                 <div className="flex items-start justify-between gap-2">
-                  <span className="font-mono text-xs font-medium text-slate-600">{l.reference}</span>
+                  <span className="font-mono text-xs font-medium text-slate-600 dark:text-slate-400">
+                    {l.reference}
+                  </span>
                   <LoanStatusBadge status={l.status} />
                 </div>
-                <p className="mt-4 text-2xl font-semibold tabular-nums text-slate-900">
+                <p className="mt-4 text-2xl font-semibold tabular-nums text-slate-900 dark:text-white">
                   {formatMoney(l.amount, l.currency)}
                 </p>
-                <div className="mt-3 flex items-center gap-3 text-xs text-slate-500">
+                <div className="mt-3 flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
                   <span>{l.termMonths} months</span>
                   <span>·</span>
                   <span>{formatPercent(l.interestRate, 2)} p.a.</span>
                 </div>
-                <p className="mt-3 text-xs text-slate-400">
+                <p className="mt-3 text-xs text-slate-400 dark:text-slate-500">
                   Applied {formatDateShort(l.submittedAt)}
                 </p>
               </Card>
@@ -252,9 +295,10 @@ export default function LoansPage() {
         </div>
       )}
 
+      {/* ─── Pagination ─── */}
       {totalPages > 1 && (
         <div className="mt-6 flex items-center justify-between text-sm">
-          <p className="text-slate-500">
+          <p className="text-slate-500 dark:text-slate-400">
             Page {page + 1} of {totalPages}
           </p>
           <div className="flex gap-2">

@@ -98,18 +98,18 @@ export default function QueuePage() {
 
       <div className="mb-5 grid gap-4 sm:grid-cols-3">
         <Card>
-          <p className="text-xs font-medium uppercase tracking-wider text-slate-500">In queue</p>
-          <p className="mt-2 text-2xl font-semibold tabular-nums text-slate-900">{loans.length}</p>
+          <p className="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">In queue</p>
+          <p className="mt-2 text-2xl font-semibold tabular-nums text-slate-900 dark:text-white">{loans.length}</p>
         </Card>
         <Card>
-          <p className="text-xs font-medium uppercase tracking-wider text-slate-500">Total requested</p>
-          <p className="mt-2 text-2xl font-semibold tabular-nums text-slate-900">
+          <p className="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">Total requested</p>
+          <p className="mt-2 text-2xl font-semibold tabular-nums text-slate-900 dark:text-white">
             {formatMoney(totalAmount)}
           </p>
         </Card>
         <Card>
-          <p className="text-xs font-medium uppercase tracking-wider text-slate-500">Oldest wait</p>
-          <p className="mt-2 text-2xl font-semibold text-slate-900">
+          <p className="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">Oldest wait</p>
+          <p className="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">
             {loans.length > 0
               ? timeAgo(loans[loans.length - 1].submittedAt).replace(' ago', '')
               : '—'}
@@ -124,7 +124,7 @@ export default function QueuePage() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search by reference or applicant…"
-            className="h-10 w-full rounded-lg border border-slate-300 bg-white pl-9 pr-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30"
+            className="h-10 w-full rounded-lg border border-slate-300 bg-white dark:bg-slate-800 pl-9 pr-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30"
           />
         </div>
       </div>
@@ -144,10 +144,10 @@ export default function QueuePage() {
       ) : (
         <Card padded={false} className="overflow-hidden">
           <table className="w-full">
-            <thead className="bg-slate-50">
+            <thead className="bg-slate-50 dark:bg-slate-900">
               <tr>
                 {['Reference', 'Applicant', 'Amount', 'Submitted', ''].map((h) => (
-                  <th key={h} className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500">
+                  <th key={h} className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">
                     {h}
                   </th>
                 ))}
@@ -165,17 +165,17 @@ export default function QueuePage() {
                   <td className="px-5 py-3.5">
                     <Link
                       href={`/loans/${l.id}`}
-                      className="font-mono text-sm font-medium text-slate-900 hover:text-brand-700"
+                      className="font-mono text-sm font-medium text-slate-900 dark:text-white hover:text-brand-700"
                     >
                       {l.reference}
                     </Link>
                   </td>
-                  <td className="px-5 py-3.5 text-sm text-slate-700">{l.applicantName}</td>
-                  <td className="px-5 py-3.5 text-sm tabular-nums text-slate-700">
+                  <td className="px-5 py-3.5 text-sm text-slate-700 dark:text-slate-200">{l.applicantName}</td>
+                  <td className="px-5 py-3.5 text-sm tabular-nums text-slate-700 dark:text-slate-200">
                     {formatMoney(l.amount, l.currency)}
                   </td>
                   <td className="px-5 py-3.5">
-                    <span className="inline-flex items-center gap-1.5 text-xs text-slate-500">
+                    <span className="inline-flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
                       <ClockIcon className="h-3.5 w-3.5" />
                       {timeAgo(l.submittedAt)}
                     </span>

@@ -13,7 +13,7 @@ export default function ChangePasswordPage() {
     <div className="mx-auto max-w-2xl space-y-6">
       <Link
         href="/profile"
-        className="inline-flex items-center gap-1 text-sm text-slate-500 transition hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"
+        className="inline-flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400 transition hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"
       >
         <ArrowLeftIcon className="h-4 w-4" /> Back to profile
       </Link>

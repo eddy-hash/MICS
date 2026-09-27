@@ -153,7 +153,7 @@ export default function LoansPage() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search by reference…"
-            className="h-10 w-full rounded-lg border border-slate-300 bg-white pl-9 pr-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+            className="h-10 w-full rounded-lg border border-slate-300 bg-white dark:bg-slate-800 pl-9 pr-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
           />
         </div>
 
@@ -170,13 +170,13 @@ export default function LoansPage() {
           </Select>
         </div>
 
-        <div className="flex rounded-lg border border-slate-300 bg-white p-0.5 dark:border-slate-700 dark:bg-slate-900">
+        <div className="flex rounded-lg border border-slate-300 bg-white dark:bg-slate-800 p-0.5 dark:border-slate-700 dark:bg-slate-900">
           <button
             onClick={() => changeView('table')}
             className={`rounded-md p-2 transition ${
               view === 'table'
                 ? 'bg-brand-50 text-brand-700 dark:bg-brand-500/10 dark:text-brand-300'
-                : 'text-slate-500 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'
+                : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-800'
             }`}
             aria-label="Table view"
           >
@@ -187,7 +187,7 @@ export default function LoansPage() {
             className={`rounded-md p-2 transition ${
               view === 'grid'
                 ? 'bg-brand-50 text-brand-700 dark:bg-brand-500/10 dark:text-brand-300'
-                : 'text-slate-500 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'
+                : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 dark:text-slate-400 dark:hover:bg-slate-800'
             }`}
             aria-label="Grid view"
           >
@@ -219,12 +219,12 @@ export default function LoansPage() {
       ) : view === 'table' ? (
         <Card padded={false} className="overflow-hidden">
           <table className="w-full">
-            <thead className="bg-slate-50 dark:bg-slate-800">
+            <thead className="bg-slate-50 dark:bg-slate-900 dark:bg-slate-800">
               <tr>
                 {['Reference', 'Amount', 'Term', 'Rate', 'Status', 'Submitted'].map((h) => (
                   <th
                     key={h}
-                    className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500"
+                    className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400"
                   >
                     {h}
                   </th>
@@ -242,24 +242,24 @@ export default function LoansPage() {
                   <td className="px-5 py-3.5">
                     <Link
                       href={`/loans/${l.id}`}
-                      className="font-mono text-sm font-medium text-slate-900 hover:text-brand-700 dark:text-white dark:hover:text-brand-400"
+                      className="font-mono text-sm font-medium text-slate-900 dark:text-white hover:text-brand-700 dark:text-white dark:hover:text-brand-400"
                     >
                       {l.reference}
                     </Link>
                   </td>
-                  <td className="px-5 py-3.5 text-sm tabular-nums text-slate-700 dark:text-slate-300">
+                  <td className="px-5 py-3.5 text-sm tabular-nums text-slate-700 dark:text-slate-200 dark:text-slate-300">
                     {formatMoney(l.amount, l.currency)}
                   </td>
-                  <td className="px-5 py-3.5 text-sm text-slate-600 dark:text-slate-400">
+                  <td className="px-5 py-3.5 text-sm text-slate-600 dark:text-slate-300 dark:text-slate-400">
                     {l.termMonths} mo
                   </td>
-                  <td className="px-5 py-3.5 text-sm tabular-nums text-slate-600 dark:text-slate-400">
+                  <td className="px-5 py-3.5 text-sm tabular-nums text-slate-600 dark:text-slate-300 dark:text-slate-400">
                     {formatPercent(l.interestRate, 2)}
                   </td>
                   <td className="px-5 py-3.5">
                     <LoanStatusBadge status={l.status} />
                   </td>
-                  <td className="px-5 py-3.5 text-xs text-slate-500 dark:text-slate-500">
+                  <td className="px-5 py-3.5 text-xs text-slate-500 dark:text-slate-400 dark:text-slate-500">
                     {formatDateShort(l.submittedAt)}
                   </td>
                 </motion.tr>
@@ -273,15 +273,15 @@ export default function LoansPage() {
             <Link key={l.id} href={`/loans/${l.id}`}>
               <Card className="h-full transition hover:border-brand-300 hover:shadow-md dark:hover:border-brand-700">
                 <div className="flex items-start justify-between gap-2">
-                  <span className="font-mono text-xs font-medium text-slate-600 dark:text-slate-400">
+                  <span className="font-mono text-xs font-medium text-slate-600 dark:text-slate-300 dark:text-slate-400">
                     {l.reference}
                   </span>
                   <LoanStatusBadge status={l.status} />
                 </div>
-                <p className="mt-4 text-2xl font-semibold tabular-nums text-slate-900 dark:text-white">
+                <p className="mt-4 text-2xl font-semibold tabular-nums text-slate-900 dark:text-white dark:text-white">
                   {formatMoney(l.amount, l.currency)}
                 </p>
-                <div className="mt-3 flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+                <div className="mt-3 flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 dark:text-slate-400">
                   <span>{l.termMonths} months</span>
                   <span>·</span>
                   <span>{formatPercent(l.interestRate, 2)} p.a.</span>
@@ -298,7 +298,7 @@ export default function LoansPage() {
       {/* ─── Pagination ─── */}
       {totalPages > 1 && (
         <div className="mt-6 flex items-center justify-between text-sm">
-          <p className="text-slate-500 dark:text-slate-400">
+          <p className="text-slate-500 dark:text-slate-400 dark:text-slate-400">
             Page {page + 1} of {totalPages}
           </p>
           <div className="flex gap-2">

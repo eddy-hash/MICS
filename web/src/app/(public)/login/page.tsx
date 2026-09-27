@@ -53,7 +53,7 @@ const panelRow = {
     transition: {
       duration: 3,
       times: [0, 0.2, 0.8, 1],
-      ease: [0.22, 1, 0.36, 1],
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       repeat: Infinity,
       repeatDelay: 0.4,
       delay: i * 0.5,
@@ -136,7 +136,7 @@ function LoginForm() {
 
   return (
     <MotionConfig reducedMotion="never">
-      <div className="flex min-h-screen w-full bg-white dark:bg-slate-950">
+      <div className="flex min-h-screen w-full bg-white dark:bg-slate-800 dark:bg-slate-950">
         {/* ─── Left panel — slideshow (desktop only) ─── */}
         <div className="relative hidden w-full max-w-[880px] flex-col justify-between overflow-hidden bg-slate-950 px-14 py-12 lg:flex">
           {/* Slideshow — images only, no caption/dots (tagline handles that) */}
@@ -155,13 +155,13 @@ function LoginForm() {
             transition={{ duration: 0.4, ease: 'easeOut' }}
             className="relative z-10 flex items-center gap-4"
           >
-            <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-white/10 ring-1 ring-white/10 backdrop-blur">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white/95 shadow-lg shadow-black/20 ring-1 ring-white/20">
               <Image
                 src="/auth/logo.jpg"
                 alt="NaedCredit"
-                width={32}
-                height={32}
-                className="h-8 w-8 rounded-full object-cover"
+                width={48}
+                height={48}
+                className="h-11 w-11 rounded-xl object-contain"
                 priority
               />
             </div>
@@ -184,12 +184,12 @@ function LoginForm() {
               animate="visible"
               className="space-y-3"
             >
-              <h1 className="text-4xl font-semibold leading-tight tracking-tight text-white drop-shadow-sm">
+              <h1 className="text-4xl font-semibold leading-[1.15] tracking-tight text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.28)] md:text-[44px]">
                 Maamuzi ya mikopo,
                 <br />
-                kwa ujasiri.
+                <span className="text-white/95">kwa ujasiri.</span>
               </h1>
-              <p className="text-sm leading-relaxed text-white/85">
+              <p className="max-w-md text-[15px] leading-relaxed text-white/75">
                 Mfumo mmoja wa kukagua mikopo, kufuata sheria na kuripoti —
                 umeundwa kwa wakopeshaji Tanzania.
               </p>
@@ -200,21 +200,27 @@ function LoginForm() {
               variants={panelRow}
               initial="hidden"
               animate="visible"
-              className="flex items-center gap-6 rounded-xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur"
+              className="flex items-center gap-5 rounded-xl border border-white/15 bg-white/[0.06] px-5 py-3.5 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.5)] backdrop-blur-md"
             >
-              <div>
-                <div className="text-2xl font-semibold text-white">TZS</div>
-                <div className="text-xs text-white/60">Sarafu ya ndani</div>
+              <div className="min-w-0">
+                <div className="text-xl font-bold tracking-tight text-white">TZS</div>
+                <div className="mt-0.5 text-[10.5px] font-medium uppercase tracking-wider text-white/55">
+                  Sarafu ya ndani
+                </div>
               </div>
-              <div className="h-8 w-px bg-white/10" />
-              <div>
-                <div className="text-2xl font-semibold text-white">RBAC</div>
-                <div className="text-xs text-white/60">Ufikiaji kwa nafasi</div>
+              <div className="h-9 w-px shrink-0 bg-white/15" />
+              <div className="min-w-0">
+                <div className="text-xl font-bold tracking-tight text-white">RBAC</div>
+                <div className="mt-0.5 text-[10.5px] font-medium uppercase tracking-wider text-white/55">
+                  Ufikiaji kwa nafasi
+                </div>
               </div>
-              <div className="h-8 w-px bg-white/10" />
-              <div>
-                <div className="text-2xl font-semibold text-white">Imekaguliwa</div>
-                <div className="text-xs text-white/60">Kumbukumbu kamili</div>
+              <div className="h-9 w-px shrink-0 bg-white/15" />
+              <div className="min-w-0">
+                <div className="text-xl font-bold tracking-tight text-white">Imekaguliwa</div>
+                <div className="mt-0.5 text-[10.5px] font-medium uppercase tracking-wider text-white/55">
+                  Kumbukumbu kamili
+                </div>
               </div>
             </motion.div>
 
@@ -232,7 +238,7 @@ function LoginForm() {
         </div>
 
         {/* ─── Right panel — form ─── */}
-        <div className="relative flex w-full flex-1 items-center justify-center overflow-hidden bg-white px-8 py-12 dark:bg-slate-950">
+        <div className="relative flex w-full flex-1 items-center justify-center overflow-hidden bg-white dark:bg-slate-800 px-8 py-12 dark:bg-slate-950">
           <div
             className="pointer-events-none absolute inset-0 opacity-40 dark:opacity-20"
             style={{
@@ -255,13 +261,13 @@ function LoginForm() {
               transition={{ duration: 0.4, ease: 'easeOut' }}
               className="mb-8 flex items-center gap-3 lg:hidden"
             >
-              <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-brand-500/10">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-slate-200 dark:bg-slate-800 dark:ring-slate-700">
                 <Image
                   src="/auth/logo.jpg"
                   alt="NaedCredit"
-                  width={28}
-                  height={28}
-                  className="h-7 w-7 rounded-full object-cover"
+                  width={44}
+                  height={44}
+                  className="h-9 w-9 rounded-lg object-contain"
                   priority
                 />
               </div>
@@ -280,7 +286,7 @@ function LoginForm() {
                 Sign in
               </h2>
               <p className="mt-1.5 text-sm text-slate-500 dark:text-slate-400">
-                Sign in to your NaedCredit account
+                Sign in to your <span className="font-semibold text-slate-900 dark:text-white">Naed</span><span className="font-semibold text-brand-600 dark:text-brand-400">Credit</span> account
               </p>
             </motion.div>
 
@@ -295,7 +301,7 @@ function LoginForm() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@company.com"
                   label="Email"
-                  prefix={<EnvelopeIcon className="h-4 w-4" />}
+                  leading={<EnvelopeIcon className="h-4 w-4" />}
                 />
               </motion.div>
 
@@ -334,11 +340,11 @@ function LoginForm() {
               </motion.div>
             </form>
 
-            <div className="mt-8 border-t border-slate-200 pt-5 dark:border-slate-800">
+            <div className="mt-8 border-t border-slate-200 dark:border-slate-700 pt-5 dark:border-slate-800">
               <div className="flex items-center justify-between text-sm">
                 <Link
                   href="/forgot-password"
-                  className="text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+                  className="text-slate-500 dark:text-slate-400 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
                 >
                   Forgot password?
                 </Link>
@@ -350,6 +356,19 @@ function LoginForm() {
                 </Link>
               </div>
             </div>
+
+            {/* Footer */}
+            <footer className="mt-6 flex flex-col items-center gap-1.5 text-center">
+              <p className="text-[11px] text-slate-400 dark:text-slate-500">
+                © {new Date().getFullYear()}{' '}
+                <span className="font-semibold text-slate-700 dark:text-slate-300">Naed</span>
+                <span className="font-semibold text-brand-600 dark:text-brand-400">Credit</span>
+                {' '}· Loan Management System
+              </p>
+              <p className="text-[10px] tracking-wide text-slate-400/80 dark:text-slate-500/80">
+                Secured · RBAC protected · v1.0
+              </p>
+            </footer>
           </motion.div>
         </div>
       </div>
@@ -361,8 +380,8 @@ export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen w-full items-center justify-center bg-white dark:bg-slate-950">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-200 border-t-brand-500 dark:border-slate-800" />
+        <div className="flex min-h-screen w-full items-center justify-center bg-white dark:bg-slate-800 dark:bg-slate-950">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-slate-200 dark:border-slate-700 border-t-brand-500 dark:border-slate-800" />
         </div>
       }
     >

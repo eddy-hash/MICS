@@ -121,7 +121,7 @@ export default function AuditPage() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search action, actor, resource…"
-            className="h-10 w-full rounded-lg border border-slate-300 bg-white pl-9 pr-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30"
+            className="h-10 w-full rounded-lg border border-slate-300 bg-white dark:bg-slate-800 pl-9 pr-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30"
           />
         </div>
         <div className="flex gap-2">
@@ -129,7 +129,7 @@ export default function AuditPage() {
             value={actionFilter}
             onChange={(e) => setActionFilter(e.target.value)}
             placeholder="Filter by exact action"
-            className="h-10 w-64 rounded-lg border border-slate-300 bg-white px-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30"
+            className="h-10 w-64 rounded-lg border border-slate-300 bg-white dark:bg-slate-800 px-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30"
           />
           <Button variant="outline" onClick={load}>Apply</Button>
         </div>
@@ -141,30 +141,30 @@ export default function AuditPage() {
         <Card padded={false} className="overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[800px]">
-              <thead className="bg-slate-50">
+              <thead className="bg-slate-50 dark:bg-slate-900">
                 <tr>
                   {['Time', 'Action', 'Actor', 'Resource', 'IP'].map((h) => (
-                    <th key={h} className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500">{h}</th>
+                    <th key={h} className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-sm">
                 {filtered.map((r) => (
-                  <tr key={r.id} className="transition hover:bg-slate-50">
-                    <td className="whitespace-nowrap px-5 py-3 font-mono text-xs text-slate-500">{formatDateTime(r.createdAt)}</td>
+                  <tr key={r.id} className="transition hover:bg-slate-50 dark:hover:bg-slate-800">
+                    <td className="whitespace-nowrap px-5 py-3 font-mono text-xs text-slate-500 dark:text-slate-400">{formatDateTime(r.createdAt)}</td>
                     <td className="px-5 py-3"><Badge tone={actionTone(r.action)}>{r.action}</Badge></td>
                     <td className="px-5 py-3 text-xs">
                       {r.actor ? (
                         <div>
-                          <p className="font-medium text-slate-700">{r.actor.firstName} {r.actor.lastName}</p>
-                          <p className="text-slate-500">{r.actor.email}</p>
+                          <p className="font-medium text-slate-700 dark:text-slate-200">{r.actor.firstName} {r.actor.lastName}</p>
+                          <p className="text-slate-500 dark:text-slate-400">{r.actor.email}</p>
                         </div>
                       ) : <span className="text-slate-400">—</span>}
                     </td>
-                    <td className="px-5 py-3 text-xs text-slate-600">
+                    <td className="px-5 py-3 text-xs text-slate-600 dark:text-slate-300">
                       {r.resourceType ? <span className="font-mono">{r.resourceType}{r.resourceId ? `·${r.resourceId.slice(0, 8)}` : ''}</span> : <span className="text-slate-400">—</span>}
                     </td>
-                    <td className="px-5 py-3 font-mono text-xs text-slate-500">{r.ipAddress ?? '—'}</td>
+                    <td className="px-5 py-3 font-mono text-xs text-slate-500 dark:text-slate-400">{r.ipAddress ?? '—'}</td>
                   </tr>
                 ))}
               </tbody>

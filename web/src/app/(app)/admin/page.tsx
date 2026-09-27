@@ -128,18 +128,18 @@ export default async function AdminDashboard() {
       {/* Amount cards */}
       <div className="grid gap-4 sm:grid-cols-2">
         <Card className="bg-gradient-to-br from-emerald-500/10 to-teal-500/5">
-          <p className="text-xs font-medium uppercase tracking-wider text-slate-500">
+          <p className="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Total disbursed ({summary.currency})
           </p>
-          <p className="mt-2 text-3xl font-semibold tabular-nums text-slate-900">
+          <p className="mt-2 text-3xl font-semibold tabular-nums text-slate-900 dark:text-white">
             {formatMoney(summary.totalDisbursedAmount, summary.currency)}
           </p>
         </Card>
         <Card className="bg-gradient-to-br from-amber-500/10 to-orange-500/5">
-          <p className="text-xs font-medium uppercase tracking-wider text-slate-500">
+          <p className="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">
             Total pending ({summary.currency})
           </p>
-          <p className="mt-2 text-3xl font-semibold tabular-nums text-slate-900">
+          <p className="mt-2 text-3xl font-semibold tabular-nums text-slate-900 dark:text-white">
             {formatMoney(summary.totalPendingAmount, summary.currency)}
           </p>
         </Card>
@@ -148,15 +148,15 @@ export default async function AdminDashboard() {
       {/* Charts row 1 */}
       <div className="grid gap-6 lg:grid-cols-2">
         <Card className="h-[340px]">
-          <h2 className="text-sm font-semibold text-slate-900">Loans by status</h2>
-          <p className="mb-4 text-xs text-slate-500">Count per workflow stage</p>
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Loans by status</h2>
+          <p className="mb-4 text-xs text-slate-500 dark:text-slate-400">Count per workflow stage</p>
           <div className="h-[240px]">
             <StatusBarChart data={statusData} />
           </div>
         </Card>
         <Card className="h-[340px]">
-          <h2 className="text-sm font-semibold text-slate-900">Distribution</h2>
-          <p className="mb-4 text-xs text-slate-500">Share of portfolio by state</p>
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Distribution</h2>
+          <p className="mb-4 text-xs text-slate-500 dark:text-slate-400">Share of portfolio by state</p>
           <div className="h-[240px]">
             <StatusPieChart data={statusData} />
           </div>
@@ -166,8 +166,8 @@ export default async function AdminDashboard() {
       {/* Charts row 2 */}
       <div className="grid gap-6 lg:grid-cols-[2fr_1fr]">
         <Card className="h-[340px]">
-          <h2 className="text-sm font-semibold text-slate-900">Volume over time</h2>
-          <p className="mb-4 text-xs text-slate-500">Last 6 months · TZS</p>
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Volume over time</h2>
+          <p className="mb-4 text-xs text-slate-500 dark:text-slate-400">Last 6 months · TZS</p>
           <div className="h-[240px]">
             {monthlyData.some((m) => m.disbursed + m.pending > 0) ? (
               <AmountAreaChart data={monthlyData} />
@@ -179,8 +179,8 @@ export default async function AdminDashboard() {
           </div>
         </Card>
         <Card className="h-[340px]">
-          <h2 className="text-sm font-semibold text-slate-900">Decisions</h2>
-          <p className="mb-4 text-xs text-slate-500">Approval vs rejection ratio</p>
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Decisions</h2>
+          <p className="mb-4 text-xs text-slate-500 dark:text-slate-400">Approval vs rejection ratio</p>
           <div className="h-[240px]">
             <ApprovalRadial approved={summary.approvedCount} total={approvalBase} />
           </div>

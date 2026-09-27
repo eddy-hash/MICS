@@ -48,19 +48,19 @@ export default function ForgotPasswordPage() {
             className="h-10 w-10 rounded-xl object-contain"
             priority
           />
-          <span className="text-lg font-semibold tracking-tight text-slate-900">
-            <span className="font-bold text-slate-900">Naed</span>
-            <span className="text-brand-600">Credit</span>
+          <span className="text-lg font-semibold tracking-tight text-slate-900 dark:text-white">
+            <span className="font-bold text-slate-900 dark:text-white">Naed</span>
+            <span className="text-brand-600 dark:text-brand-400">Credit</span>
           </span>
         </Link>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-8 shadow-sm">
           {/* Centered heading */}
           <div className="text-center">
-            <h1 className="text-2xl font-semibold tracking-tight text-slate-900">
+            <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
               Reset your password
             </h1>
-            <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-slate-500">
+            <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-slate-500 dark:text-slate-400">
               We&apos;ll email a secure link if an account exists for that address.
             </p>
           </div>
@@ -87,7 +87,7 @@ export default function ForgotPasswordPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@company.com"
-                prefix={<EnvelopeIcon className="h-4 w-4" />}
+                leading={<EnvelopeIcon className="h-4 w-4" />}
               />
               <Button type="submit" size="lg" fullWidth loading={busy}>
                 {busy ? 'Sending…' : 'Send reset link'}

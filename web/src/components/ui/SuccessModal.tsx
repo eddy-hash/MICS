@@ -53,12 +53,12 @@ export function SuccessModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 10 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl"
+            className="relative w-full max-w-md overflow-hidden rounded-2xl bg-white dark:bg-slate-800 shadow-2xl"
           >
             <button
               onClick={onClose}
               aria-label="Close"
-              className="absolute right-4 top-4 rounded-lg p-1.5 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600"
+              className="absolute right-4 top-4 rounded-lg p-1.5 text-slate-400 transition hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-600"
             >
               <XMarkIcon className="h-4 w-4" />
             </button>
@@ -93,10 +93,10 @@ export function SuccessModal({
               </div>
 
               <div className="text-center">
-                <h3 className="text-xl font-semibold text-slate-900">{title}</h3>
-                <p className="mt-2 text-sm text-slate-500">{message}</p>
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-white">{title}</h3>
+                <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{message}</p>
                 {details && (
-                  <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-sm">
+                  <div className="mt-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 py-3 text-left text-sm">
                     {details}
                   </div>
                 )}

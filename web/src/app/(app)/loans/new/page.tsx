@@ -78,9 +78,9 @@ export default function NewLoanPage() {
   if (checking) {
     return (
       <div className="mx-auto max-w-5xl">
-        <div className="animate-pulse rounded-2xl bg-white p-8 shadow-sm dark:bg-slate-900">
-          <div className="h-8 w-48 rounded bg-slate-200 dark:bg-slate-700" />
-          <div className="mt-4 h-4 w-64 rounded bg-slate-100 dark:bg-slate-800" />
+        <div className="animate-pulse rounded-2xl bg-white dark:bg-slate-800 p-8 shadow-sm dark:bg-slate-900">
+          <div className="h-8 w-48 rounded bg-slate-200 dark:bg-slate-700 dark:bg-slate-700" />
+          <div className="mt-4 h-4 w-64 rounded bg-slate-100 dark:bg-slate-800 dark:bg-slate-800" />
         </div>
       </div>
     );
@@ -90,7 +90,7 @@ export default function NewLoanPage() {
   if (activeLoan) {
     return (
       <div className="mx-auto max-w-2xl">
-        <Link href="/loans" className="mb-4 inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200">
+        <Link href="/loans" className="mb-4 inline-flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200">
           <ArrowLeftIcon className="h-4 w-4" /> Back to loans
         </Link>
 
@@ -129,7 +129,7 @@ export default function NewLoanPage() {
   // ── Normal form ──
   return (
     <div className="mx-auto max-w-5xl">
-      <Link href="/loans" className="mb-4 inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200">
+      <Link href="/loans" className="mb-4 inline-flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200">
         <ArrowLeftIcon className="h-4 w-4" /> Back to loans
       </Link>
 
@@ -141,7 +141,7 @@ export default function NewLoanPage() {
       <form onSubmit={onSubmit} className="grid gap-6 lg:grid-cols-[1fr_360px]">
         <div className="space-y-4">
           <Card>
-            <h2 className="mb-4 text-sm font-semibold text-slate-900 dark:text-white">Loan details</h2>
+            <h2 className="mb-4 text-sm font-semibold text-slate-900 dark:text-white dark:text-white">Loan details</h2>
             <div className="space-y-4">
               <MoneyInput label="Amount" value={amount} onChange={setAmount} min={100_000} max={500_000_000} required hint="Min 100,000 TZS · Max 500,000,000 TZS" />
               <div className="grid grid-cols-2 gap-3">
@@ -188,7 +188,7 @@ export default function NewLoanPage() {
             <Button type="submit" size="lg" fullWidth loading={busy} className="mt-4">
               {busy ? 'Submitting…' : 'Submit application'}
             </Button>
-            <p className="mt-2 text-center text-xs text-slate-500 dark:text-slate-400">
+            <p className="mt-2 text-center text-xs text-slate-500 dark:text-slate-400 dark:text-slate-400">
               Reviewed within 1–2 business days.
             </p>
           </motion.div>
@@ -201,11 +201,11 @@ export default function NewLoanPage() {
         title="Application submitted"
         message={`Your loan application ${success?.reference} is now pending review.`}
         details={
-          <div className="space-y-1 text-slate-700">
-            <p><span className="text-slate-500">Reference:</span> <span className="font-mono">{success?.reference}</span></p>
-            <p><span className="text-slate-500">Amount:</span> {formatMoney(amount)}</p>
-            <p><span className="text-slate-500">Term:</span> {termMonths} months</p>
-            <p><span className="text-slate-500">Monthly:</span> {formatMoney(monthly)}</p>
+          <div className="space-y-1 text-slate-700 dark:text-slate-200">
+            <p><span className="text-slate-500 dark:text-slate-400">Reference:</span> <span className="font-mono">{success?.reference}</span></p>
+            <p><span className="text-slate-500 dark:text-slate-400">Amount:</span> {formatMoney(amount)}</p>
+            <p><span className="text-slate-500 dark:text-slate-400">Term:</span> {termMonths} months</p>
+            <p><span className="text-slate-500 dark:text-slate-400">Monthly:</span> {formatMoney(monthly)}</p>
           </div>
         }
         buttonText="View my loans"
@@ -227,8 +227,8 @@ function PreviewRow({ label, value, bold }: { label: string; value: string; bold
 function Row({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
   return (
     <div className="flex justify-between gap-4">
-      <dt className="text-slate-500 dark:text-slate-400">{label}</dt>
-      <dd className={`font-medium text-slate-900 dark:text-white ${mono ? 'font-mono text-xs' : ''}`}>{value}</dd>
+      <dt className="text-slate-500 dark:text-slate-400 dark:text-slate-400">{label}</dt>
+      <dd className={`font-medium text-slate-900 dark:text-white dark:text-white ${mono ? 'font-mono text-xs' : ''}`}>{value}</dd>
     </div>
   );
 }

@@ -146,7 +146,7 @@ export default function AdminUsersPage() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search by name or email…"
-            className="h-10 w-full rounded-lg border border-slate-300 bg-white pl-9 pr-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+            className="h-10 w-full rounded-lg border border-slate-300 bg-white dark:bg-slate-800 pl-9 pr-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
           />
         </div>
       </div>
@@ -157,13 +157,13 @@ export default function AdminUsersPage() {
         <Card padded={false} className="overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[820px]">
-              <thead className="bg-slate-50 dark:bg-slate-800">
+              <thead className="bg-slate-50 dark:bg-slate-900 dark:bg-slate-800">
                 <tr>
-                  <th className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500">User</th>
+                  <th className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">User</th>
                   {ALL_ROLES.map((r) => (
-                    <th key={r} className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider text-slate-500">{r}</th>
+                    <th key={r} className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">{r}</th>
                   ))}
-                  <th className="px-5 py-3 text-center text-xs font-medium uppercase tracking-wider text-slate-500">Status</th>
+                  <th className="px-5 py-3 text-center text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">Status</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -173,8 +173,8 @@ export default function AdminUsersPage() {
                       <div className="flex items-center gap-3">
                         <Avatar name={u.fullName} size="sm" />
                         <div className="min-w-0">
-                          <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{u.fullName}</p>
-                          <p className="truncate text-xs text-slate-500">{u.email}</p>
+                          <p className="truncate text-sm font-medium text-slate-900 dark:text-white dark:text-white">{u.fullName}</p>
+                          <p className="truncate text-xs text-slate-500 dark:text-slate-400">{u.email}</p>
                           <p className="mt-0.5 text-[10px] text-slate-400">Joined {formatDateShort(u.createdAt)}</p>
                         </div>
                       </div>
@@ -195,14 +195,14 @@ export default function AdminUsersPage() {
                         <button
                           onClick={() => toggleStatus(u, { enabled: !u.enabled })}
                           disabled={busy === u.id}
-                          className={`inline-flex h-7 items-center gap-1 rounded-full px-2 text-[10px] font-medium transition ${u.enabled ? 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+                          className={`inline-flex h-7 items-center gap-1 rounded-full px-2 text-[10px] font-medium transition ${u.enabled ? 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'}`}
                         >
                           {u.enabled ? (<><CheckCircleIcon className="h-3 w-3" /> Active</>) : (<><XCircleIcon className="h-3 w-3" /> Disabled</>)}
                         </button>
                         <button
                           onClick={() => toggleStatus(u, { locked: !u.locked })}
                           disabled={busy === u.id}
-                          className={`inline-flex h-7 items-center gap-1 rounded-full px-2 text-[10px] font-medium transition ${u.locked ? 'bg-amber-100 text-amber-800 hover:bg-amber-200' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+                          className={`inline-flex h-7 items-center gap-1 rounded-full px-2 text-[10px] font-medium transition ${u.locked ? 'bg-amber-100 text-amber-800 hover:bg-amber-200' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'}`}
                         >
                           {u.locked ? (<><LockClosedIcon className="h-3 w-3" /> Locked</>) : (<><LockOpenIcon className="h-3 w-3" /> Open</>)}
                         </button>

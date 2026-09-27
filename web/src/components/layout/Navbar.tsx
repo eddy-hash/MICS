@@ -51,16 +51,16 @@ export function Navbar({ email, roles, permissions }: NavbarProps) {
   const canCreate = permissions.includes(PERMISSIONS.LOAN_CREATE);
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-slate-200 bg-white/80 px-4 backdrop-blur-md md:px-6">
+    <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80 px-4 backdrop-blur-md md:px-6 dark:border-slate-800 dark:bg-slate-900/80">
       <div className="flex-1 min-w-0">
-        {crumbs.length > 0 ? <Breadcrumbs items={crumbs} /> : <span className="text-sm text-slate-500">Home</span>}
+        {crumbs.length > 0 ? <Breadcrumbs items={crumbs} /> : <span className="text-sm text-slate-500 dark:text-slate-400 dark:text-slate-400">Home</span>}
       </div>
 
       <div className="hidden lg:flex items-center">
-        <button className="flex h-9 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 text-xs text-slate-500 transition hover:border-slate-300 hover:text-slate-700">
+        <button className="flex h-9 items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 text-xs text-slate-500 dark:text-slate-400 transition hover:border-slate-300 hover:text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400 dark:hover:border-slate-600 dark:hover:text-slate-200">
           <MagnifyingGlassIcon className="h-4 w-4" />
           <span>Search</span>
-          <kbd className="ml-2 rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 font-mono text-[10px] text-slate-500">⌘K</kbd>
+          <kbd className="ml-2 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-1.5 py-0.5 font-mono text-[10px] text-slate-500 dark:text-slate-400 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400">⌘K</kbd>
         </button>
       </div>
 

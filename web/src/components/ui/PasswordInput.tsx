@@ -17,7 +17,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
     return (
       <div className="w-full">
         {label && (
-          <label htmlFor={inputId} className="mb-1.5 block text-sm font-medium text-slate-700">
+          <label htmlFor={inputId} className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-200">
             {label}
           </label>
         )}
@@ -44,7 +44,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             onClick={() => setShow((s) => !s)}
             aria-label={show ? 'Hide password' : 'Show password'}
             aria-pressed={show}
-            className="shrink-0 rounded p-1 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+            className="shrink-0 rounded p-1 text-slate-400 transition hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             tabIndex={-1}
           >
             {show ? <EyeSlashIcon className="h-4 w-4" /> : <EyeIcon className="h-4 w-4" />}
@@ -53,7 +53,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
         {error ? (
           <p className="mt-1.5 text-xs text-rose-600">{error}</p>
         ) : hint ? (
-          <p className="mt-1.5 text-xs text-slate-500">{hint}</p>
+          <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">{hint}</p>
         ) : null}
       </div>
     );

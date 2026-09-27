@@ -36,7 +36,7 @@ export const InterestRateInput = forwardRef<HTMLInputElement, InterestRateInputP
           const pct = Number(e.target.value);
           onChange(Number.isFinite(pct) ? pct / 100 : 0);
         }}
-        suffix={<span className="text-xs font-medium text-slate-500">% p.a.</span>}
+        suffix={<span className="text-xs font-medium text-slate-500 dark:text-slate-400">% p.a.</span>}
         hint={hint}
         error={error}
         className="tabular-nums"

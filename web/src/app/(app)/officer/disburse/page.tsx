@@ -51,18 +51,18 @@ export default function DisbursePage() {
 
       <div className="mb-5 grid gap-4 sm:grid-cols-3">
         <Card>
-          <p className="text-xs font-medium uppercase tracking-wider text-slate-500">Awaiting</p>
-          <p className="mt-2 text-2xl font-semibold tabular-nums text-slate-900">{loans.length}</p>
+          <p className="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">Awaiting</p>
+          <p className="mt-2 text-2xl font-semibold tabular-nums text-slate-900 dark:text-white">{loans.length}</p>
         </Card>
         <Card>
-          <p className="text-xs font-medium uppercase tracking-wider text-slate-500">Total to disburse</p>
-          <p className="mt-2 text-2xl font-semibold tabular-nums text-slate-900">
+          <p className="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">Total to disburse</p>
+          <p className="mt-2 text-2xl font-semibold tabular-nums text-slate-900 dark:text-white">
             {formatMoney(total)}
           </p>
         </Card>
         <Card>
-          <p className="text-xs font-medium uppercase tracking-wider text-slate-500">Ready</p>
-          <p className="mt-2 text-2xl font-semibold text-slate-900">
+          <p className="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">Ready</p>
+          <p className="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">
             {filtered.length === 0 ? '—' : `${filtered.length} loan${filtered.length === 1 ? '' : 's'}`}
           </p>
         </Card>
@@ -75,7 +75,7 @@ export default function DisbursePage() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search reference or applicant…"
-            className="h-10 w-full rounded-lg border border-slate-300 bg-white pl-9 pr-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30"
+            className="h-10 w-full rounded-lg border border-slate-300 bg-white dark:bg-slate-800 pl-9 pr-3 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/30"
           />
         </div>
       </div>
@@ -99,17 +99,17 @@ export default function DisbursePage() {
             >
               <Card className="flex h-full flex-col">
                 <div className="flex items-start justify-between gap-2">
-                  <span className="font-mono text-xs font-medium text-slate-600">{l.reference}</span>
+                  <span className="font-mono text-xs font-medium text-slate-600 dark:text-slate-300">{l.reference}</span>
                   <LoanStatusBadge status={l.status} />
                 </div>
-                <div className="mt-4 flex items-center gap-2 text-sm text-slate-700">
+                <div className="mt-4 flex items-center gap-2 text-sm text-slate-700 dark:text-slate-200">
                   <BanknotesIcon className="h-4 w-4 text-slate-400" />
                   {l.applicantName}
                 </div>
-                <p className="mt-3 text-2xl font-semibold tabular-nums text-slate-900">
+                <p className="mt-3 text-2xl font-semibold tabular-nums text-slate-900 dark:text-white">
                   {formatMoney(l.amount, l.currency)}
                 </p>
-                <p className="mt-1 text-xs text-slate-500">
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                   {l.termMonths} months · approved {l.approvedAt ? timeAgo(l.approvedAt) : ''}
                 </p>
                 <div className="mt-auto pt-4">

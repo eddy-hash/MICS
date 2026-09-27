@@ -38,11 +38,11 @@ export function StatCard({ label, value, hint, tone = 'brand', icon }: StatCardP
     >
       <div className="relative z-10">
         <div className="flex items-start justify-between gap-3">
-          <p className="text-xs font-medium uppercase tracking-wider text-slate-500">{label}</p>
+          <p className="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</p>
           {icon && <span className={t.text}>{icon}</span>}
         </div>
-        <p className="mt-3 text-2xl font-semibold tabular-nums text-slate-900">{value}</p>
-        {hint && <p className="mt-1.5 text-xs text-slate-500">{hint}</p>}
+        <p className="mt-3 text-2xl font-semibold tabular-nums text-slate-900 dark:text-white">{value}</p>
+        {hint && <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">{hint}</p>}
       </div>
       <div className={cn('absolute -right-6 -top-6 h-24 w-24 rounded-full blur-2xl', t.blob)} />
     </motion.div>

@@ -6,7 +6,7 @@ import { formatDateTime } from '@/lib/format';
 
 export function LoanTimeline({ entries }: { entries: LoanHistoryEntry[] }) {
   if (entries.length === 0) {
-    return <p className="text-sm text-slate-500">No history yet.</p>;
+    return <p className="text-sm text-slate-500 dark:text-slate-400">No history yet.</p>;
   }
 
   return (
@@ -20,24 +20,24 @@ export function LoanTimeline({ entries }: { entries: LoanHistoryEntry[] }) {
           className="relative flex gap-4 pb-5 last:pb-0"
         >
           {i < entries.length - 1 && (
-            <span className="absolute left-[9px] top-5 h-full w-px bg-slate-200" />
+            <span className="absolute left-[9px] top-5 h-full w-px bg-slate-200 dark:bg-slate-700" />
           )}
           <span className="relative z-10 mt-1 h-5 w-5 shrink-0 rounded-full border-2 border-white bg-brand-500 shadow-sm ring-2 ring-brand-100" />
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               {h.fromStatus && (
-                <span className="text-sm text-slate-500">{STATUS_LABEL[h.fromStatus]}</span>
+                <span className="text-sm text-slate-500 dark:text-slate-400">{STATUS_LABEL[h.fromStatus]}</span>
               )}
               {h.fromStatus && <span className="text-xs text-slate-400">→</span>}
-              <span className="text-sm font-semibold text-slate-900">
+              <span className="text-sm font-semibold text-slate-900 dark:text-white">
                 {STATUS_LABEL[h.toStatus]}
               </span>
               {h.changedBy && (
-                <span className="text-xs text-slate-500">by {h.changedBy}</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400">by {h.changedBy}</span>
               )}
             </div>
             {h.notes && (
-              <p className="mt-0.5 text-xs italic text-slate-500">{h.notes}</p>
+              <p className="mt-0.5 text-xs italic text-slate-500 dark:text-slate-400">{h.notes}</p>
             )}
             <p className="mt-0.5 text-[10px] uppercase tracking-wide text-slate-400">
               {formatDateTime(h.changedAt)}

@@ -117,9 +117,9 @@ export function AmountAreaChart({ data }: { data: AmountDatum[] }) {
             border: '1px solid #e2e8f0',
             fontSize: 12,
           }}
-          formatter={(v: number) => `${v.toLocaleString()} TZS`}
+          formatter={(v) => `${Number(v).toLocaleString()} TZS`}
         />
-        <Legend iconType="circle" wrapperStyle={{ fontSize: 12, paddingTop: 8 }} />
+        <Legend iconType="circle" wrapperStyle={{ fontSize: 12, paddingTop: 8 } as any} />
         <Area
           type="monotone"
           dataKey="disbursed"
@@ -167,8 +167,8 @@ export function ApprovalRadial({ approved, total }: { approved: number; total: n
         </RadialBarChart>
       </ResponsiveContainer>
       <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-        <p className="text-3xl font-semibold tabular-nums text-slate-900">{rate}%</p>
-        <p className="mt-0.5 text-xs text-slate-500">Approval rate</p>
+        <p className="text-3xl font-semibold tabular-nums text-slate-900 dark:text-white">{rate}%</p>
+        <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Approval rate</p>
       </div>
     </div>
   );

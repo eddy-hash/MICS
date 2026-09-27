@@ -32,13 +32,13 @@ export function ProfileMenu({ email, roles }: ProfileMenuProps) {
     <Dropdown
       className="w-64"
       trigger={
-        <button className="flex items-center gap-2 rounded-full p-0.5 transition hover:bg-slate-100">
+        <button className="flex items-center gap-2 rounded-full p-0.5 transition hover:bg-slate-100 dark:hover:bg-slate-800">
           <Avatar name={email} size="sm" />
         </button>
       }
     >
-      <div className="border-b border-slate-100 px-4 py-3">
-        <p className="truncate text-sm font-medium text-slate-900">{email}</p>
+      <div className="border-b border-slate-100 dark:border-slate-800 px-4 py-3">
+        <p className="truncate text-sm font-medium text-slate-900 dark:text-white">{email}</p>
         <div className="mt-1.5 flex flex-wrap gap-1">
           {roles.map((r) => (
             <Badge key={r} tone="brand" className="text-[10px]">
@@ -47,7 +47,7 @@ export function ProfileMenu({ email, roles }: ProfileMenuProps) {
           ))}
         </div>
       </div>
-      <div className="border-b border-slate-100 px-4 py-3">
+      <div className="border-b border-slate-100 dark:border-slate-800 px-4 py-3">
         <p className="mb-2 text-xs font-medium uppercase tracking-wide text-slate-400">
           Theme
         </p>

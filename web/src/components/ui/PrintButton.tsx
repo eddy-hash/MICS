@@ -5,6 +5,8 @@ import { Button, type ButtonProps } from './Button';
 interface PrintButtonProps extends Omit<ButtonProps, 'onClick'> {
   /** Optional title shown in the browser print dialog */
   documentTitle?: string;
+  /** Button label text */
+  label?: string;
 }
 
 /**

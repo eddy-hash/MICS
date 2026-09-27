@@ -46,7 +46,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${jakarta.variable}`} suppressHydrationWarning>
-      <body className="min-h-screen bg-slate-50 font-sans antialiased dark:bg-slate-950 dark:text-slate-100">
+      <body className="min-h-screen bg-slate-50 dark:bg-slate-900 font-sans antialiased dark:bg-slate-950 dark:text-slate-100">
         <ThemeProvider>
           {children}
           <HotToaster
@@ -61,7 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }}
           />
         </ThemeProvider>
-      </body>
+            </body>
     </html>
   );
 }

@@ -69,9 +69,9 @@ export function LoanActionsPanel({ loan, roles: _roles, permissions }: LoanActio
   const anyAction = canApprove || canReject || canDisburse || canRepay || canCancel;
   if (!anyAction) {
     return (
-      <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-        <h3 className="text-sm font-semibold text-slate-700">Actions</h3>
-        <p className="mt-1 text-xs text-slate-500">
+      <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 p-5">
+        <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-200">Actions</h3>
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
           No actions available for this loan in its current state.
         </p>
       </div>
@@ -80,8 +80,8 @@ export function LoanActionsPanel({ loan, roles: _roles, permissions }: LoanActio
 
   return (
     <>
-      <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-        <h3 className="text-sm font-semibold text-slate-900">Actions</h3>
+      <div className="space-y-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-5 shadow-sm">
+        <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Actions</h3>
 
         <div className="flex flex-wrap gap-2">
           {canApprove && (
@@ -96,10 +96,10 @@ export function LoanActionsPanel({ loan, roles: _roles, permissions }: LoanActio
                       title: 'Loan approved',
                       message: `Application ${loan.reference} has been approved.`,
                       details: (
-                        <div className="space-y-1 text-slate-700">
-                          <p><span className="text-slate-500">Applicant:</span> {loan.applicantName}</p>
-                          <p><span className="text-slate-500">Amount:</span> {formatMoney(loan.amount, loan.currency)}</p>
-                          <p><span className="text-slate-500">Status:</span> Approved — awaiting disbursement</p>
+                        <div className="space-y-1 text-slate-700 dark:text-slate-200">
+                          <p><span className="text-slate-500 dark:text-slate-400">Applicant:</span> {loan.applicantName}</p>
+                          <p><span className="text-slate-500 dark:text-slate-400">Amount:</span> {formatMoney(loan.amount, loan.currency)}</p>
+                          <p><span className="text-slate-500 dark:text-slate-400">Status:</span> Approved — awaiting disbursement</p>
                         </div>
                       ),
                     });
@@ -196,9 +196,9 @@ export function LoanActionsPanel({ loan, roles: _roles, permissions }: LoanActio
                       title: 'Loan rejected',
                       message: `Application ${loan.reference} has been rejected.`,
                       details: (
-                        <div className="space-y-1 text-slate-700">
-                          <p><span className="text-slate-500">Applicant:</span> {loan.applicantName}</p>
-                          <p><span className="text-slate-500">Reason:</span> {rejectReason}</p>
+                        <div className="space-y-1 text-slate-700 dark:text-slate-200">
+                          <p><span className="text-slate-500 dark:text-slate-400">Applicant:</span> {loan.applicantName}</p>
+                          <p><span className="text-slate-500 dark:text-slate-400">Reason:</span> {rejectReason}</p>
                         </div>
                       ),
                     });
@@ -246,10 +246,10 @@ export function LoanActionsPanel({ loan, roles: _roles, permissions }: LoanActio
                       title: 'Funds disbursed',
                       message: `Loan ${loan.reference} has been disbursed.`,
                       details: (
-                        <div className="space-y-1 text-slate-700">
-                          <p><span className="text-slate-500">Amount:</span> {formatMoney(loan.amount, loan.currency)}</p>
-                          <p><span className="text-slate-500">Reference:</span> <span className="font-mono">{disburseRef}</span></p>
-                          <p><span className="text-slate-500">Recipient:</span> {loan.applicantName}</p>
+                        <div className="space-y-1 text-slate-700 dark:text-slate-200">
+                          <p><span className="text-slate-500 dark:text-slate-400">Amount:</span> {formatMoney(loan.amount, loan.currency)}</p>
+                          <p><span className="text-slate-500 dark:text-slate-400">Reference:</span> <span className="font-mono">{disburseRef}</span></p>
+                          <p><span className="text-slate-500 dark:text-slate-400">Recipient:</span> {loan.applicantName}</p>
                         </div>
                       ),
                     });
@@ -295,9 +295,9 @@ export function LoanActionsPanel({ loan, roles: _roles, permissions }: LoanActio
                       title: 'Loan fully repaid',
                       message: `Application ${loan.reference} is now marked as repaid.`,
                       details: (
-                        <div className="space-y-1 text-slate-700">
-                          <p><span className="text-slate-500">Amount:</span> {formatMoney(loan.amount, loan.currency)}</p>
-                          <p><span className="text-slate-500">Reference:</span> <span className="font-mono">{repayRef}</span></p>
+                        <div className="space-y-1 text-slate-700 dark:text-slate-200">
+                          <p><span className="text-slate-500 dark:text-slate-400">Amount:</span> {formatMoney(loan.amount, loan.currency)}</p>
+                          <p><span className="text-slate-500 dark:text-slate-400">Reference:</span> <span className="font-mono">{repayRef}</span></p>
                         </div>
                       ),
                     });

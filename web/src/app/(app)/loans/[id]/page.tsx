@@ -45,7 +45,7 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ id:
     <div className="mx-auto max-w-5xl space-y-6">
       <Link
         href="/loans"
-        className="inline-flex items-center gap-1 text-sm text-slate-500 transition hover:text-slate-800"
+        className="inline-flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400 transition hover:text-slate-800"
       >
         <ArrowLeftIcon className="h-4 w-4" /> Back to loans
       </Link>
@@ -76,7 +76,7 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ id:
                 </span>
               </div>
             </div>
-            <div className="rounded-xl bg-white/15 px-3 py-1.5 backdrop-blur">
+            <div className="rounded-xl bg-white dark:bg-slate-800/15 px-3 py-1.5 backdrop-blur">
               <LoanStatusBadge status={l.status} />
             </div>
           </div>
@@ -97,39 +97,39 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ id:
         <div className="space-y-6">
           {/* Details */}
           <Card>
-            <h2 className="mb-4 text-sm font-semibold text-slate-900">Details</h2>
+            <h2 className="mb-4 text-sm font-semibold text-slate-900 dark:text-white">Details</h2>
             <dl className="grid gap-4 sm:grid-cols-2">
               <Field label="Applicant">
                 <div className="flex items-center gap-2">
                   <Avatar name={l.applicantName} size="sm" />
-                  <span className="text-sm text-slate-700">{l.applicantName}</span>
+                  <span className="text-sm text-slate-700 dark:text-slate-200">{l.applicantName}</span>
                 </div>
               </Field>
               <Field label="Currency">
-                <span className="text-sm text-slate-700">{l.currency}</span>
+                <span className="text-sm text-slate-700 dark:text-slate-200">{l.currency}</span>
               </Field>
               {l.purpose && (
                 <Field label="Purpose" wide>
-                  <p className="text-sm text-slate-700">{l.purpose}</p>
+                  <p className="text-sm text-slate-700 dark:text-slate-200">{l.purpose}</p>
                 </Field>
               )}
               {l.reviewedBy && (
                 <Field label="Reviewed by">
-                  <span className="text-sm text-slate-700">
+                  <span className="text-sm text-slate-700 dark:text-slate-200">
                     {l.reviewedBy} · {l.reviewedAt ? formatDateShort(l.reviewedAt) : ''}
                   </span>
                 </Field>
               )}
               {l.approvedBy && (
                 <Field label="Approved by">
-                  <span className="text-sm text-slate-700">
+                  <span className="text-sm text-slate-700 dark:text-slate-200">
                     {l.approvedBy} · {l.approvedAt ? formatDateShort(l.approvedAt) : ''}
                   </span>
                 </Field>
               )}
               {l.rejectedBy && (
                 <Field label="Rejected by">
-                  <span className="text-sm text-slate-700">
+                  <span className="text-sm text-slate-700 dark:text-slate-200">
                     {l.rejectedBy} · {l.rejectedAt ? formatDateShort(l.rejectedAt) : ''}
                   </span>
                 </Field>
@@ -143,19 +143,19 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ id:
               )}
               {l.disbursedBy && (
                 <Field label="Disbursed by">
-                  <span className="text-sm text-slate-700">
+                  <span className="text-sm text-slate-700 dark:text-slate-200">
                     {l.disbursedBy} · {l.disbursedAt ? formatDateShort(l.disbursedAt) : ''}
                   </span>
                 </Field>
               )}
               {l.disbursementRef && (
                 <Field label="Disbursement ref">
-                  <span className="font-mono text-sm text-slate-700">{l.disbursementRef}</span>
+                  <span className="font-mono text-sm text-slate-700 dark:text-slate-200">{l.disbursementRef}</span>
                 </Field>
               )}
               {l.repaidAt && (
                 <Field label="Repaid at">
-                  <span className="text-sm text-slate-700">{formatDateTime(l.repaidAt)}</span>
+                  <span className="text-sm text-slate-700 dark:text-slate-200">{formatDateTime(l.repaidAt)}</span>
                 </Field>
               )}
             </dl>
@@ -164,8 +164,8 @@ export default async function LoanDetailPage({ params }: { params: Promise<{ id:
           {/* Timeline */}
           <Card>
             <div className="mb-5 flex items-center gap-2">
-              <DocumentTextIcon className="h-4 w-4 text-slate-500" />
-              <h2 className="text-sm font-semibold text-slate-900">Status history</h2>
+              <DocumentTextIcon className="h-4 w-4 text-slate-500 dark:text-slate-400" />
+              <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Status history</h2>
             </div>
             <LoanTimeline entries={d.history} />
           </Card>
@@ -202,7 +202,7 @@ function Field({
 }) {
   return (
     <div className={wide ? 'sm:col-span-2' : ''}>
-      <dt className="mb-1 text-xs font-medium uppercase tracking-wide text-slate-500">
+      <dt className="mb-1 text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
         {label}
       </dt>
       <dd>{children}</dd>

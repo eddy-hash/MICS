@@ -154,7 +154,7 @@ export default function NotificationsPage() {
                     </span>
                   </div>
                   {n.body && (
-                    <p className="mt-0.5 text-sm text-slate-600 dark:text-slate-400">
+                    <p className="mt-0.5 text-sm text-slate-600 dark:text-slate-300">
                       {n.body}
                     </p>
                   )}

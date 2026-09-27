@@ -1,23 +1,23 @@
 import { forwardRef, type InputHTMLAttributes, type ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'prefix'> {
   label?: string;
   hint?: string;
   error?: string;
-  prefix?: ReactNode;
+  leading?: ReactNode;
   suffix?: ReactNode;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { label, hint, error, prefix, suffix, className, id, ...rest },
+  { label, hint, error, leading, suffix, className, id, ...rest },
   ref,
 ) {
   const inputId = id ?? rest.name;
   return (
     <div className="w-full">
       {label && (
-        <label htmlFor={inputId} className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
+        <label htmlFor={inputId} className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300">
           {label}
         </label>
       )}
@@ -28,7 +28,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           error ? 'border-rose-400' : 'border-slate-300 dark:border-slate-700',
         )}
       >
-        {prefix && <span className="text-sm text-slate-500">{prefix}</span>}
+        {leading && <span className="text-sm text-slate-500 dark:text-slate-400">{leading}</span>}
         <input
           ref={ref}
           id={inputId}
@@ -39,12 +39,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           )}
           {...rest}
         />
-        {suffix && <span className="text-sm text-slate-500">{suffix}</span>}
+        {suffix && <span className="text-sm text-slate-500 dark:text-slate-400">{suffix}</span>}
       </div>
       {error ? (
         <p className="mt-1.5 text-xs text-rose-600">{error}</p>
       ) : hint ? (
-        <p className="mt-1.5 text-xs text-slate-500">{hint}</p>
+        <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">{hint}</p>
       ) : null}
     </div>
   );

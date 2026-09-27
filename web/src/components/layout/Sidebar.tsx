@@ -104,9 +104,9 @@ export function Sidebar({ roles: _roles, permissions }: SidebarProps) {
     <motion.aside
       animate={{ width: collapsed ? 76 : 260 }}
       transition={{ duration: 0.22, ease: 'easeOut' }}
-      className="relative hidden h-screen shrink-0 flex-col border-r border-slate-200 bg-white md:flex dark:border-slate-800 dark:bg-slate-900"
+      className="relative hidden h-screen shrink-0 flex-col border-r border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 md:flex dark:border-slate-800 dark:bg-slate-900"
     >
-      <div className="flex h-16 shrink-0 items-center gap-2.5 border-b border-slate-100 px-5 dark:border-slate-800">
+      <div className="flex h-16 shrink-0 items-center gap-2.5 border-b border-slate-100 dark:border-slate-800 px-5 dark:border-slate-800">
         <Image
           src="/auth/logo.jpg"
           alt="NaedCredit"
@@ -123,7 +123,7 @@ export function Sidebar({ roles: _roles, permissions }: SidebarProps) {
               exit={{ opacity: 0, x: -4 }}
               className="text-base font-semibold tracking-tight text-slate-900 dark:text-white"
             >
-              <span className="font-bold text-slate-900">Naed</span><span className="text-brand-600">Credit</span>
+              <span className="font-bold text-slate-900 dark:text-white">Naed</span><span className="text-brand-600 dark:text-brand-400">Credit</span>
             </motion.span>
           )}
         </AnimatePresence>
@@ -151,7 +151,7 @@ export function Sidebar({ roles: _roles, permissions }: SidebarProps) {
                       className={cn(
                         'group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition',
                         active
-                          ? 'bg-brand-50 font-medium text-brand-700 dark:bg-brand-500/10 dark:text-brand-300'
+                          ? 'bg-slate-100 font-semibold text-slate-900 dark:bg-slate-800 dark:text-white'
                           : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white',
                       )}
                     >
@@ -161,7 +161,16 @@ export function Sidebar({ roles: _roles, permissions }: SidebarProps) {
                           className="absolute left-0 top-1/2 h-6 w-0.5 -translate-y-1/2 rounded-r bg-brand-600"
                         />
                       )}
-                      <Icon className={cn('h-5 w-5 shrink-0', active ? 'text-brand-600 dark:text-brand-300' : 'text-slate-400 dark:text-slate-500')} />
+                      <span
+                        className={cn(
+                          'flex h-7 w-7 shrink-0 items-center justify-center rounded-md transition-colors',
+                          active
+                            ? 'bg-brand-600 text-white shadow-sm shadow-brand-600/30'
+                            : 'text-slate-600 group-hover:bg-slate-200/70 dark:text-slate-300 dark:group-hover:bg-slate-700/60',
+                        )}
+                      >
+                        <Icon className="h-[18px] w-[18px]" />
+                      </span>
                       <AnimatePresence>
                         {!collapsed && (
                           <motion.span
@@ -185,7 +194,7 @@ export function Sidebar({ roles: _roles, permissions }: SidebarProps) {
 
       <button
         onClick={toggle}
-        className="flex h-11 shrink-0 items-center justify-center border-t border-slate-100 text-slate-400 transition hover:bg-slate-50 hover:text-slate-700 dark:border-slate-800 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-300"
+        className="flex h-11 shrink-0 items-center justify-center border-t border-slate-100 dark:border-slate-800 text-slate-400 transition hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-700 dark:border-slate-800 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-300"
         aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
       >
         {collapsed ? (

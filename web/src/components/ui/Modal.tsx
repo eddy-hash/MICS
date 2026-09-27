@@ -52,21 +52,21 @@ export function Modal({ open, onClose, title, description, children, footer, siz
             )}
           >
             {(title || description) && (
-              <div className="border-b border-slate-100 px-6 py-4">
-                {title && <h2 className="text-base font-semibold text-slate-900">{title}</h2>}
-                {description && <p className="mt-1 text-sm text-slate-500">{description}</p>}
+              <div className="border-b border-slate-100 dark:border-slate-800 px-6 py-4">
+                {title && <h2 className="text-base font-semibold text-slate-900 dark:text-white">{title}</h2>}
+                {description && <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{description}</p>}
               </div>
             )}
             <button
               onClick={onClose}
               aria-label="Close"
-              className="absolute right-3 top-3 rounded-lg p-1.5 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600"
+              className="absolute right-3 top-3 rounded-lg p-1.5 text-slate-400 transition hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-600"
             >
               <XMarkIcon className="h-4 w-4" />
             </button>
             <div className="px-6 py-5">{children}</div>
             {footer && (
-              <div className="flex justify-end gap-2 border-t border-slate-100 bg-slate-50 px-6 py-3">
+              <div className="flex justify-end gap-2 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 px-6 py-3">
                 {footer}
               </div>
             )}

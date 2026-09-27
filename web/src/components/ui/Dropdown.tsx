@@ -34,7 +34,9 @@ export function Dropdown({ trigger, children, align = 'right', className }: Drop
             transition={{ duration: 0.14, ease: 'easeOut' }}
             style={{ transformOrigin: align === 'right' ? 'top right' : 'top left' }}
             className={cn(
-              'absolute z-50 mt-2 min-w-[12rem] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl dark:border-slate-800 dark:bg-slate-900',
+              'absolute z-50 mt-2 min-w-[12rem] overflow-hidden rounded-xl border shadow-xl',
+              'border-slate-200 bg-white',
+              'dark:border-slate-700 dark:bg-slate-800',
               align === 'right' ? 'right-0' : 'left-0',
               className,
             )}
@@ -62,18 +64,29 @@ export function DropdownItem({
     <button
       onClick={onClick}
       className={cn(
-        'flex w-full items-center gap-2.5 px-3.5 py-2 text-sm transition',
+        'group flex w-full items-center gap-3 px-3.5 py-2 text-sm font-medium transition',
         danger
-          ? 'text-rose-600 hover:bg-rose-50'
-          : 'text-slate-700 hover:bg-slate-50',
+          ? 'text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10'
+          : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700/60',
       )}
     >
-      {icon && <span className="text-slate-400">{icon}</span>}
-      {children}
+      {icon && (
+        <span
+          className={cn(
+            'flex h-7 w-7 shrink-0 items-center justify-center rounded-md transition-colors',
+            danger
+              ? 'bg-rose-50 text-rose-600 dark:bg-rose-500/15 dark:text-rose-400'
+              : 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300 group-hover:bg-slate-200/80 dark:group-hover:bg-slate-600',
+          )}
+        >
+          {icon}
+        </span>
+      )}
+      <span className="truncate">{children}</span>
     </button>
   );
 }
 
 export function DropdownDivider() {
-  return <div className="my-1 border-t border-slate-100" />;
+  return <div className="my-1 border-t border-slate-100 dark:border-slate-700" />;
 }

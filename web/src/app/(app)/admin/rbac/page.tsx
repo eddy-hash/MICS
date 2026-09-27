@@ -75,7 +75,8 @@ export default function RbacPage() {
 
   function buildRbacPdf(): PdfOptions {
     const rows: string[][] = [];
-    for (const perm of matrix.allPermissions) {
+    const perms = matrix?.allPermissions ?? [];
+    for (const perm of perms) {
       rows.push([
         perm,
         draft.LOANEE.has(perm) ? '✓' : '',
@@ -108,8 +109,9 @@ export default function RbacPage() {
     );
   }
 
+  const perms = matrix?.allPermissions ?? [];
   const grouped: Record<string, string[]> = {};
-  for (const p of matrix.allPermissions) {
+  for (const p of perms) {
     const g = groupOf(p);
     grouped[g] ??= [];
     grouped[g].push(p);
@@ -129,11 +131,11 @@ export default function RbacPage() {
       <Card padded={false} className="overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[720px] text-sm">
-            <thead className="sticky top-0 z-10 bg-slate-50">
+            <thead className="sticky top-0 z-10 bg-slate-50 dark:bg-slate-900">
               <tr>
-                <th className="w-[340px] px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500">Permission</th>
+                <th className="w-[340px] px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">Permission</th>
                 {ROLES.map((r) => (
-                  <th key={r} className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-slate-500">{r}</th>
+                  <th key={r} className="px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">{r}</th>
                 ))}
               </tr>
             </thead>
@@ -144,8 +146,8 @@ export default function RbacPage() {
                     <td colSpan={4} className="px-5 py-2 text-xs font-semibold uppercase tracking-wide text-brand-700 dark:text-brand-300">{GROUP_LABEL[g] ?? g}</td>
                   </tr>
                   {grouped[g].sort().map((perm) => (
-                    <tr key={perm} className="transition hover:bg-slate-50">
-                      <td className="px-5 py-2.5 font-mono text-xs text-slate-700">{perm}</td>
+                    <tr key={perm} className="transition hover:bg-slate-50 dark:hover:bg-slate-800">
+                      <td className="px-5 py-2.5 font-mono text-xs text-slate-700 dark:text-slate-200">{perm}</td>
                       {ROLES.map((role) => (
                         <td key={role} className="px-4 py-2.5 text-center">
                           <input
@@ -161,9 +163,9 @@ export default function RbacPage() {
                 </Fragment>
               ))}
             </tbody>
-            <tfoot className="sticky bottom-0 bg-slate-50">
+            <tfoot className="sticky bottom-0 bg-slate-50 dark:bg-slate-900">
               <tr>
-                <td className="px-5 py-3 text-xs font-medium uppercase tracking-wide text-slate-500">Save changes</td>
+                <td className="px-5 py-3 text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">Save changes</td>
                 {ROLES.map((r) => (
                   <td key={r} className="px-4 py-3 text-center">
                     <Button size="sm" variant="secondary" loading={saving === r} onClick={() => save(r)}>
@@ -182,7 +184,7 @@ export default function RbacPage() {
         <div>
           <p className="font-medium">Guardrail</p>
           <p className="mt-0.5 text-xs">
-            ADMINISTRATOR must always keep <code className="rounded bg-white/70 px-1">role:permission:manage</code>, otherwise nobody can edit RBAC again. The backend enforces this automatically.
+            ADMINISTRATOR must always keep <code className="rounded bg-white dark:bg-slate-800/70 px-1">role:permission:manage</code>, otherwise nobody can edit RBAC again. The backend enforces this automatically.
           </p>
         </div>
       </div>
@@ -203,7 +205,7 @@ export default function RbacPage() {
         title="Permissions updated"
         message={`${success} now has the updated permission set.`}
         details={
-          <div className="text-slate-700">
+          <div className="text-slate-700 dark:text-slate-200">
             <p className="text-sm">Users with this role will pick up the changes on their next sign-in (or within 15 minutes on token refresh).</p>
           </div>
         }

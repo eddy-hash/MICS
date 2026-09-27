@@ -55,18 +55,18 @@ export default function ResetPasswordPage({ params }: { params: Promise<{ token:
             className="h-10 w-10 rounded-xl object-contain"
             priority
           />
-          <span className="text-lg font-semibold tracking-tight text-slate-900">
-            <span className="font-bold text-slate-900">Naed</span><span className="text-brand-600">Credit</span>
+          <span className="text-lg font-semibold tracking-tight text-slate-900 dark:text-white">
+            <span className="font-bold text-slate-900 dark:text-white">Naed</span><span className="text-brand-600 dark:text-brand-400">Credit</span>
           </span>
         </Link>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-8 shadow-sm">
           {/* Heading — centered */}
           <div className="text-center">
-            <h1 className="text-2xl font-semibold tracking-tight text-slate-900">
+            <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
               Set new password
             </h1>
-            <p className="mt-2 text-sm text-slate-500">
+            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
               Choose a strong password for your account.
             </p>
           </div>

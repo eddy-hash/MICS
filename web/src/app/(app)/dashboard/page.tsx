@@ -89,28 +89,28 @@ export default async function DashboardPage() {
           <div className="mt-6 flex flex-wrap gap-2.5">
             {canViewOwn && (
               <Link href="/loans">
-                <Button className="border-0 bg-white text-brand-700 hover:bg-brand-50 shadow-sm" leftIcon={<BanknotesIcon className="h-4 w-4" />}>
+                <Button className="border-0 bg-white dark:bg-slate-800 text-brand-700 hover:bg-brand-50 shadow-sm" leftIcon={<BanknotesIcon className="h-4 w-4" />}>
                   My Loans
                 </Button>
               </Link>
             )}
             {canCreate && (
               <Link href="/loans/new">
-                <Button className="border border-white/30 bg-white/10 text-white hover:bg-white/20 backdrop-blur">
+                <Button className="border border-white/30 bg-white dark:bg-slate-800/10 text-white hover:bg-white/20 backdrop-blur">
                   Apply for a Loan
                 </Button>
               </Link>
             )}
             {canReview && (
               <Link href="/officer/queue">
-                <Button className="border border-white/30 bg-white/10 text-white hover:bg-white/20 backdrop-blur">
+                <Button className="border border-white/30 bg-white dark:bg-slate-800/10 text-white hover:bg-white/20 backdrop-blur">
                   Review Queue
                 </Button>
               </Link>
             )}
             {canDisburse && (
               <Link href="/officer/disburse">
-                <Button className="border border-white/30 bg-white/10 text-white hover:bg-white/20 backdrop-blur">
+                <Button className="border border-white/30 bg-white dark:bg-slate-800/10 text-white hover:bg-white/20 backdrop-blur">
                   Disbursements
                 </Button>
               </Link>
@@ -150,7 +150,7 @@ export default async function DashboardPage() {
       {canViewOwn && (
         <section>
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-slate-900">Recent applications</h2>
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Recent applications</h2>
             <Link href="/loans" className="text-sm font-medium text-brand-600 hover:text-brand-700">View all →</Link>
           </div>
           {!myLoans || myLoans.content.length === 0 ? (
@@ -167,17 +167,17 @@ export default async function DashboardPage() {
               <ul className="divide-y divide-slate-100">
                 {myLoans.content.map((l) => (
                   <li key={l.id}>
-                    <Link href={`/loans/${l.id}`} className="flex items-center gap-4 px-5 py-4 transition hover:bg-slate-50">
+                    <Link href={`/loans/${l.id}`} className="flex items-center gap-4 px-5 py-4 transition hover:bg-slate-50 dark:hover:bg-slate-800">
                       <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
                         <BanknotesIcon className="h-5 w-5" />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="font-mono text-sm font-medium text-slate-900">{l.reference}</p>
-                        <p className="mt-0.5 text-xs text-slate-500">
+                        <p className="font-mono text-sm font-medium text-slate-900 dark:text-white">{l.reference}</p>
+                        <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
                           {formatMoney(l.amount, l.currency)} · {l.termMonths} months
                         </p>
                       </div>
-                      <div className="hidden text-xs text-slate-500 sm:block">{formatDateShort(l.submittedAt)}</div>
+                      <div className="hidden text-xs text-slate-500 dark:text-slate-400 sm:block">{formatDateShort(l.submittedAt)}</div>
                       <LoanStatusBadge status={l.status} />
                     </Link>
                   </li>
@@ -188,9 +188,9 @@ export default async function DashboardPage() {
         </section>
       )}
 
-      <section className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
+      <section className="flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
         <span>Signed in as</span>
-        <span className="font-medium text-slate-700">{email}</span>
+        <span className="font-medium text-slate-700 dark:text-slate-200">{email}</span>
         {roles.map((r) => <Badge key={r} tone="brand">{r}</Badge>)}
       </section>
     </div>
@@ -222,10 +222,10 @@ function KpiTile({
   return (
     <Card padded className={`bg-gradient-to-br ${t.bg}`}>
       <div className="flex items-start justify-between">
-        <p className="text-xs font-medium uppercase tracking-wider text-slate-500">{label}</p>
+        <p className="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</p>
         <span className={t.text}>{icon}</span>
       </div>
-      <p className="mt-3 text-2xl font-semibold tabular-nums text-slate-900">
+      <p className="mt-3 text-2xl font-semibold tabular-nums text-slate-900 dark:text-white">
         <CountUpNumber value={value} mode={mode} currency={currency} />
       </p>
       <div className={`pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full blur-2xl ${t.blob}`} />
@@ -240,8 +240,8 @@ function QuickTile({ href, title, description, icon }: { href: string; title: st
         <div className="flex items-start gap-3">
           <div className="grid h-10 w-10 place-items-center rounded-xl bg-brand-50 text-brand-600">{icon}</div>
           <div className="flex-1">
-            <h3 className="text-sm font-semibold text-slate-900">{title}</h3>
-            <p className="mt-1 text-xs text-slate-500">{description}</p>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-white">{title}</h3>
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{description}</p>
             <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-brand-600 group-hover:text-brand-700">
               Open <ArrowRightIcon className="h-3 w-3" />
             </span>

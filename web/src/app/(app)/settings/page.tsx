@@ -27,8 +27,8 @@ export default function SettingsPage() {
       <PageHeader title="Settings" description="Preferences for how LoanFlow looks and behaves." />
 
       <Card>
-        <h2 className="text-sm font-semibold text-slate-900">Appearance</h2>
-        <p className="mt-1 text-xs text-slate-500">
+        <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Appearance</h2>
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
           This is stored per-browser. Full dark mode rollout arrives soon.
         </p>
         <div className="mt-4 grid grid-cols-3 gap-3">
@@ -39,11 +39,11 @@ export default function SettingsPage() {
               className={`rounded-xl border p-4 text-left transition ${
                 theme === t
                   ? 'border-brand-500 bg-brand-50/40 ring-1 ring-brand-500/20'
-                  : 'border-slate-200 bg-white hover:border-slate-300'
+                  : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-slate-300'
               }`}
             >
-              <p className="text-sm font-medium capitalize text-slate-900">{t}</p>
-              <p className="mt-0.5 text-xs text-slate-500">
+              <p className="text-sm font-medium capitalize text-slate-900 dark:text-white">{t}</p>
+              <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
                 {t === 'light' ? 'Bright UI' : t === 'dark' ? 'Dim UI' : 'Follow OS'}
               </p>
             </button>
@@ -53,8 +53,8 @@ export default function SettingsPage() {
       </Card>
 
       <Card>
-        <h2 className="text-sm font-semibold text-slate-900">Data &amp; privacy</h2>
-        <p className="mt-1 text-xs text-slate-500">
+        <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Data &amp; privacy</h2>
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
           Your session tokens are stored as HttpOnly cookies and cannot be read by JavaScript.
         </p>
         <div className="mt-4 flex flex-wrap gap-2">
@@ -71,24 +71,6 @@ export default function SettingsPage() {
             Clear local data &amp; sign out
           </Button>
         </div>
-      </Card>
-
-      <Card>
-        <h2 className="text-sm font-semibold text-slate-900">About</h2>
-        <dl className="mt-4 space-y-2 text-sm">
-          <div className="flex justify-between">
-            <dt className="text-slate-500">Application</dt>
-            <dd className="font-medium text-slate-900">LoanFlow</dd>
-          </div>
-          <div className="flex justify-between">
-            <dt className="text-slate-500">Region</dt>
-            <dd className="font-medium text-slate-900">Tanzania (TZS)</dd>
-          </div>
-          <div className="flex justify-between">
-            <dt className="text-slate-500">Backend</dt>
-            <dd className="font-medium text-slate-900">Spring Boot 4 · Kotlin</dd>
-          </div>
-        </dl>
       </Card>
     </div>
   );

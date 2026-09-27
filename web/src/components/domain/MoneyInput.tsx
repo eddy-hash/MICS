@@ -31,7 +31,7 @@ export const MoneyInput = forwardRef<HTMLInputElement, MoneyInputProps>(function
       step={1000}
       value={Number.isFinite(value) ? value : ''}
       onChange={(e) => onChange(Number(e.target.value))}
-      prefix={<span className="text-xs font-medium text-slate-500">{currency}</span>}
+      leading={<span className="text-xs font-medium text-slate-500 dark:text-slate-400">{currency}</span>}
       hint={hint}
       error={error}
       className="tabular-nums"

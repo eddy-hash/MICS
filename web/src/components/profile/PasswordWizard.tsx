@@ -181,16 +181,16 @@ export function PasswordWizard({ onCancel }: PasswordWizardProps) {
     <>
       <Card className="overflow-hidden">
         {/* Header */}
-        <div className="border-b border-slate-100 dark:border-slate-800 px-5 pb-4">
+        <div className="border-b border-slate-100 dark:border-slate-800 dark:border-slate-800 px-5 pb-4">
           <div className="flex items-center gap-3">
             <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand-500 to-cyan-500 text-white shadow-sm">
               <ShieldCheckIcon className="h-5 w-5" />
             </div>
             <div>
-              <h2 className="text-sm font-semibold text-slate-900 dark:text-white">
+              <h2 className="text-sm font-semibold text-slate-900 dark:text-white dark:text-white">
                 Change password
               </h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
+              <p className="text-xs text-slate-500 dark:text-slate-400 dark:text-slate-400">
                 {STEP_LABELS[step]}
               </p>
             </div>
@@ -311,13 +311,13 @@ export function PasswordWizard({ onCancel }: PasswordWizardProps) {
                 {newPassword && (
                   <div className="space-y-1.5">
                     <div className="flex items-center gap-2">
-                      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+                      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700 dark:bg-slate-700">
                         <div
                           className={cn('h-full transition-all duration-300', strength.color)}
                           style={{ width: `${(strength.score / 6) * 100}%` }}
                         />
                       </div>
-                      <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
+                      <span className="text-xs font-medium text-slate-500 dark:text-slate-400 dark:text-slate-400">
                         {strength.label}
                       </span>
                     </div>
@@ -397,16 +397,16 @@ export function PasswordWizard({ onCancel }: PasswordWizardProps) {
                     <span className="absolute inset-0 animate-ping rounded-full bg-emerald-400/40" />
                   </motion.div>
 
-                  <h3 className="mt-5 text-lg font-semibold text-slate-900 dark:text-white">
+                  <h3 className="mt-5 text-lg font-semibold text-slate-900 dark:text-white dark:text-white">
                     Password changed
                   </h3>
-                  <p className="mt-1 max-w-xs text-sm text-slate-500 dark:text-slate-400">
+                  <p className="mt-1 max-w-xs text-sm text-slate-500 dark:text-slate-400 dark:text-slate-400">
                     For security, all your active sessions on every device have been signed out.
                   </p>
                 </div>
 
-                <div className="rounded-xl border border-slate-200 dark:border-slate-800 p-3 text-sm">
-                  <p className="text-slate-600 dark:text-slate-400">
+                <div className="rounded-xl border border-slate-200 dark:border-slate-700 dark:border-slate-800 p-3 text-sm">
+                  <p className="text-slate-600 dark:text-slate-300 dark:text-slate-400">
                     Sign back in with your new password.
                   </p>
                 </div>

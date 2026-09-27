@@ -82,7 +82,7 @@ export function NotificationBell() {
         <button
           onClick={() => setOpen((o) => !o)}
           aria-label="Notifications"
-          className="relative rounded-lg p-2 text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+          className="relative rounded-lg p-2 text-slate-600 dark:text-slate-300 transition hover:bg-slate-100 dark:hover:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-800"
         >
           <BellIcon className="h-5 w-5" />
           {count > 0 && (
@@ -100,12 +100,12 @@ export function NotificationBell() {
               exit={{ opacity: 0, scale: 0.96, y: -4 }}
               transition={{ duration: 0.14, ease: 'easeOut' }}
               style={{ transformOrigin: 'top right' }}
-              className="absolute right-0 z-50 mt-2 w-80 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl sm:w-96 dark:border-slate-800 dark:bg-slate-900"
+              className="absolute right-0 z-50 mt-2 w-80 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-xl sm:w-96 dark:border-slate-800 dark:bg-slate-900"
             >
               {/* Header */}
-              <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3 dark:border-slate-800">
+              <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 px-4 py-3 dark:border-slate-800">
                 <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-semibold text-slate-900 dark:text-white">
+                  <h3 className="text-sm font-semibold text-slate-900 dark:text-white dark:text-white">
                     Notifications
                   </h3>
                   {count > 0 && (
@@ -129,7 +129,7 @@ export function NotificationBell() {
                 {items.length === 0 ? (
                   <div className="px-4 py-12 text-center">
                     <BellIcon className="mx-auto mb-3 h-10 w-10 text-slate-300 dark:text-slate-600" />
-                    <p className="text-sm text-slate-500 dark:text-slate-400">
+                    <p className="text-sm text-slate-500 dark:text-slate-400 dark:text-slate-400">
                       No notifications yet
                     </p>
                     <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
@@ -143,7 +143,7 @@ export function NotificationBell() {
                         key={n.id}
                         className={`group flex items-start gap-3 px-4 py-3 transition ${
                           n.read
-                            ? 'hover:bg-slate-50 dark:hover:bg-slate-800/50'
+                            ? 'hover:bg-slate-50 dark:hover:bg-slate-800 dark:hover:bg-slate-800/50'
                             : 'bg-brand-50/40 hover:bg-brand-50/70 dark:bg-brand-500/5 dark:hover:bg-brand-500/10'
                         }`}
                       >
@@ -153,11 +153,11 @@ export function NotificationBell() {
                               <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-brand-500" />
                             )}
                             <div className="min-w-0 flex-1">
-                              <p className="truncate text-sm font-medium text-slate-900 dark:text-white">
+                              <p className="truncate text-sm font-medium text-slate-900 dark:text-white dark:text-white">
                                 {n.title}
                               </p>
                               {n.body && (
-                                <p className="mt-0.5 line-clamp-2 text-xs text-slate-600 dark:text-slate-400">
+                                <p className="mt-0.5 line-clamp-2 text-xs text-slate-600 dark:text-slate-300 dark:text-slate-400">
                                   {n.body}
                                 </p>
                               )}
@@ -200,7 +200,7 @@ export function NotificationBell() {
                 <Link
                   href="/notifications"
                   onClick={() => setOpen(false)}
-                  className="block border-t border-slate-100 px-4 py-3 text-center text-sm font-medium text-brand-600 transition hover:bg-brand-50/50 dark:border-slate-800 dark:text-brand-400 dark:hover:bg-slate-800"
+                  className="block border-t border-slate-100 dark:border-slate-800 px-4 py-3 text-center text-sm font-medium text-brand-600 transition hover:bg-brand-50/50 dark:border-slate-800 dark:text-brand-400 dark:hover:bg-slate-800"
                 >
                   View all
                 </Link>

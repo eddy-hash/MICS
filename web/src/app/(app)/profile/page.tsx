@@ -75,10 +75,10 @@ export default function ProfilePage() {
         <Card className="flex items-center gap-4">
           <Avatar name={`${profile.firstName} ${profile.lastName}`} size="lg" />
           <div className="min-w-0 flex-1">
-            <p className="text-lg font-semibold text-slate-900 dark:text-white">
+            <p className="text-lg font-semibold text-slate-900 dark:text-white dark:text-white">
               {profile.firstName} {profile.lastName}
             </p>
-            <p className="text-sm text-slate-500 dark:text-slate-400">{profile.email}</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400 dark:text-slate-400">{profile.email}</p>
             <div className="mt-2 flex flex-wrap gap-1.5">
               {profile.roles.map((r) => (
                 <Badge key={r} tone="brand">
@@ -89,7 +89,7 @@ export default function ProfilePage() {
               {profile.locked && <Badge tone="amber">Locked</Badge>}
             </div>
           </div>
-          <div className="hidden shrink-0 text-right text-xs text-slate-500 dark:text-slate-400 sm:block">
+          <div className="hidden shrink-0 text-right text-xs text-slate-500 dark:text-slate-400 dark:text-slate-400 sm:block">
             <p className="font-medium">Member since</p>
             <p>{formatDateShort(profile.createdAt)}</p>
           </div>
@@ -98,7 +98,7 @@ export default function ProfilePage() {
 
       {/* Personal details */}
       <Card>
-        <h2 className="mb-4 text-sm font-semibold text-slate-900 dark:text-white">
+        <h2 className="mb-4 text-sm font-semibold text-slate-900 dark:text-white dark:text-white">
           Personal details
         </h2>
         <form onSubmit={saveProfile} className="space-y-4">
@@ -142,10 +142,10 @@ export default function ProfilePage() {
               <LockClosedIcon className="h-5 w-5" />
             </div>
             <div>
-              <h2 className="text-sm font-semibold text-slate-900 dark:text-white">
+              <h2 className="text-sm font-semibold text-slate-900 dark:text-white dark:text-white">
                 Password
               </h2>
-              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 dark:text-slate-400">
                 Change your password in 3 quick steps. You&apos;ll be signed out of all devices.
               </p>
             </div>

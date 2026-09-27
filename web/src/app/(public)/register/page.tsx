@@ -94,11 +94,11 @@ export default function RegisterPage() {
               alt="NaedCredit"
               width={40}
               height={40}
-              className="h-10 w-10 rounded-xl bg-white/10 object-contain p-1 backdrop-blur"
+              className="h-10 w-10 rounded-xl bg-white dark:bg-slate-800/10 object-contain p-1 backdrop-blur"
               priority
             />
             <span className="text-lg font-semibold tracking-tight">
-              <span className="font-bold text-slate-900">Naed</span><span className="text-brand-600">Credit</span>
+              <span className="font-bold text-slate-900 dark:text-white">Naed</span><span className="text-brand-600 dark:text-brand-400">Credit</span>
             </span>
           </Link>
           <div className="max-w-md">
@@ -118,30 +118,30 @@ export default function RegisterPage() {
           transition={{ duration: 0.35 }}
           className="mx-auto w-full max-w-sm"
         >
-          <h2 className="text-2xl font-semibold tracking-tight text-slate-900">Create account</h2>
-          <p className="mt-1 text-sm text-slate-500">Get started in under a minute</p>
+          <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">Create account</h2>
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Get started in under a minute</p>
 
           <form onSubmit={onSubmit} className="mt-8 space-y-4">
             <div className="grid grid-cols-2 gap-3">
-              <Input label="First name" required value={form.firstName} onChange={set('firstName')} prefix={<UserIcon className="h-4 w-4" />} />
-              <Input label="Last name" required value={form.lastName} onChange={set('lastName')} prefix={<UserIcon className="h-4 w-4" />} />
+              <Input label="First name" required value={form.firstName} onChange={set('firstName')} leading={<UserIcon className="h-4 w-4" />} />
+              <Input label="Last name" required value={form.lastName} onChange={set('lastName')} leading={<UserIcon className="h-4 w-4" />} />
             </div>
 
-            <Input label="Email" type="email" required value={form.email} onChange={set('email')} prefix={<EnvelopeIcon className="h-4 w-4" />} />
+            <Input label="Email" type="email" required value={form.email} onChange={set('email')} leading={<EnvelopeIcon className="h-4 w-4" />} />
 
-            <Input label="Phone (optional)" type="tel" value={form.phone} onChange={set('phone')} placeholder="+255 7XX XXX XXX" prefix={<PhoneIcon className="h-4 w-4" />} />
+            <Input label="Phone (optional)" type="tel" value={form.phone} onChange={set('phone')} placeholder="+255 7XX XXX XXX" leading={<PhoneIcon className="h-4 w-4" />} />
 
             <div>
               <PasswordInput label="Password" required minLength={12} value={form.password} onChange={set('password')} />
               {form.password && (
                 <div className="mt-2 flex items-center gap-2">
-                  <div className="h-1 flex-1 overflow-hidden rounded-full bg-slate-200">
+                  <div className="h-1 flex-1 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
                     <div className={cn('h-full transition-all', pw.color)} style={{ width: `${(pw.score / 5) * 100}%` }} />
                   </div>
-                  <span className="text-xs text-slate-500">{pw.label}</span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400">{pw.label}</span>
                 </div>
               )}
-              <p className="mt-1.5 text-xs text-slate-500">
+              <p className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
                 12+ characters with uppercase, lowercase, and a digit.
               </p>
             </div>
@@ -157,7 +157,7 @@ export default function RegisterPage() {
             </Button>
           </form>
 
-          <p className="mt-8 text-center text-sm text-slate-500">
+          <p className="mt-8 text-center text-sm text-slate-500 dark:text-slate-400">
             Already have an account?{' '}
             <Link href="/login" className="font-medium text-brand-600 hover:text-brand-700">
               Sign in
@@ -172,9 +172,9 @@ export default function RegisterPage() {
         title="Account created"
         message="Welcome to NaedCredit. You're signed in and ready to go."
         details={
-          <div className="space-y-1 text-slate-700">
-            <p><span className="text-slate-500">Name:</span> {form.firstName} {form.lastName}</p>
-            <p><span className="text-slate-500">Email:</span> {form.email}</p>
+          <div className="space-y-1 text-slate-700 dark:text-slate-200">
+            <p><span className="text-slate-500 dark:text-slate-400">Name:</span> {form.firstName} {form.lastName}</p>
+            <p><span className="text-slate-500 dark:text-slate-400">Email:</span> {form.email}</p>
           </div>
         }
         buttonText="Go to dashboard"

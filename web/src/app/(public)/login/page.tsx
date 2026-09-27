@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useEffect} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -93,34 +93,85 @@ function LoginForm() {
         return;
       }
 
+      // BFF wraps backend errors as { error, detail: { message, fieldErrors } }
+      // Unwrap to get the polite message from Spring.
+      let backendMessage: string | undefined;
+      try {
+        const data = await res.clone().json();
+        backendMessage =
+          (typeof data?.detail?.message === 'string' && data.detail.message) ||
+          (typeof data?.message === 'string' && data.message) ||
+          undefined;
+      } catch { /* ignore */ }
+
       let kind: ErrorKind;
       let message: string;
 
       if (res.status === 400 || res.status === 401) {
         kind = 'invalid';
-        message = 'Invalid email or password.';
+        message = backendMessage || 'Invalid email or password.';
       } else if (res.status === 429) {
         kind = 'rate-limit';
-        message = 'Too many attempts. Please wait a moment before trying again.';
+        message = backendMessage
+          || 'Too many attempts. Please wait a moment before trying again.';
       } else if (res.status >= 500) {
         kind = 'server';
-        message = 'Something went wrong on our end. Please try again later.';
+        message = backendMessage
+          || 'Something went wrong on our end. Please try again later.';
       } else {
         kind = 'server';
-        message = "We couldn't sign you in right now. Please try again.";
+        message = backendMessage
+          || "We couldn't sign you in right now. Please try again.";
       }
 
       setErrorKind(kind);
       setErrorMessage(message);
-      notify.error(message);
+
+      // 🔑 Fixed id → new error replaces old one instead of stacking
+      notify.error(message, { id: 'login-error' });
     } catch {
       setErrorKind('network');
       setErrorMessage('You appear to be offline. Check your connection.');
-      notify.error('Network error. Check your connection.');
+      notify.error('Network error. Check your connection.', { id: 'login-error' });
     } finally {
       setLoading(false);
     }
   }
+
+  // ─── Live countdown for rate-limit banner ───
+  const [secondsLeft, setSecondsLeft] = useState(0);
+
+  useEffect(() => {
+    if (errorKind !== 'rate-limit') { setSecondsLeft(0); return; }
+    const match = errorMessage.match(/(\d+)\s*minute/i);
+    if (!match) return;
+    setSecondsLeft(parseInt(match[1], 10) * 60);
+  }, [errorKind, errorMessage]);
+
+  useEffect(() => {
+    if (secondsLeft <= 0) return;
+    const id = setInterval(() => setSecondsLeft(s => Math.max(0, s - 1)), 1000);
+    return () => clearInterval(id);
+  }, [secondsLeft]);
+
+  const countdown = secondsLeft > 0
+    ? `${Math.floor(secondsLeft / 60)}:${String(secondsLeft % 60).padStart(2, '0')}`
+    : null;
+
+  // ─── Live countdown for rate-limit banner ───
+
+  useEffect(() => {
+    if (errorKind !== 'rate-limit') { setSecondsLeft(0); return; }
+    const match = errorMessage.match(/(\d+)\s*minute/i);
+    if (!match) return;
+    setSecondsLeft(parseInt(match[1], 10) * 60);
+  }, [errorKind, errorMessage]);
+
+  useEffect(() => {
+    if (secondsLeft <= 0) return;
+    const id = setInterval(() => setSecondsLeft(s => Math.max(0, s - 1)), 1000);
+    return () => clearInterval(id);
+  }, [secondsLeft]);
 
   const isRateLimit = errorKind === 'rate-limit';
   const bannerTone = isRateLimit

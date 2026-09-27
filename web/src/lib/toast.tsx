@@ -5,11 +5,13 @@ export type ToastType = 'success' | 'error' | 'warning' | 'info' | 'logout' | 'l
 export interface ToastOptions {
   subMessage?: string;
   duration?: number;
+  /** Fixed id — new toast with same id replaces the old one (no stacking) */
+  id?: string;
 }
 
 const DEFAULT_DURATIONS: Record<ToastType, number> = {
   success: 3000,
-  error: 5000,
+  error: 3000,
   warning: 4500,
   info: 4000,
   logout: 2000,
@@ -88,9 +90,10 @@ interface ToastContentProps {
   message: string;
   subMessage?: string;
   visible: boolean;
+  id: string;
 }
 
-function ToastContent({ type, message, subMessage, visible }: ToastContentProps) {
+function ToastContent({ type, message, subMessage, visible, id }: ToastContentProps) {
   const style = STYLES[type];
   return (
     <div
@@ -122,9 +125,15 @@ function fire(type: ToastType, message: string, options?: ToastOptions): void {
         message={message}
         subMessage={options?.subMessage}
         visible={t.visible}
+        id={t.id}
       />
     ),
-    { duration, position: 'bottom-center' },
+    {
+      duration,
+      position: 'bottom-center',
+      // 🔑 Deduping: same id → replaces existing toast
+      ...(options?.id ? { id: options.id } : {}),
+    },
   );
 }
 

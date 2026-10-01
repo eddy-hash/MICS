@@ -47,8 +47,13 @@ export default function LoansPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [total, setTotal] = useState(0);
 
-  // Restore view preference
+  // Restore view preference — but force grid on small screens
   useEffect(() => {
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    if (isMobile) {
+      setView('grid');
+      return;
+    }
     const saved = (localStorage.getItem('loans-view') as ViewMode) ?? 'table';
     setView(saved);
   }, []);
@@ -129,7 +134,7 @@ export default function LoansPage() {
         title="My Loans"
         description={`${total} total application${total === 1 ? '' : 's'}`}
         actions={
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <ExportBundle<Loan>
               filename="naedcredit-my-loans"
               printTitle={`NaedCredit-Loans-${new Date().toISOString().slice(0, 10)}`}
@@ -146,8 +151,8 @@ export default function LoansPage() {
       />
 
       {/* ─── Filter bar ─── */}
-      <div className="mb-5 flex flex-wrap items-center gap-3">
-        <div className="relative flex-1 min-w-[220px]">
+      <div className="mb-4 flex flex-col gap-2 sm:mb-5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
+        <div className="relative w-full sm:flex-1 sm:min-w-[220px]">
           <MagnifyingGlassIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
           <input
             value={q}
@@ -157,7 +162,7 @@ export default function LoansPage() {
           />
         </div>
 
-        <div className="w-48">
+        <div className="w-full sm:w-48">
           <Select
             value={filter}
             onChange={(e) => setFilter(e.target.value as LoanStatus | 'ALL')}
@@ -170,7 +175,7 @@ export default function LoansPage() {
           </Select>
         </div>
 
-        <div className="flex rounded-lg border border-slate-300 bg-white dark:bg-slate-800 p-0.5 dark:border-slate-700 dark:bg-slate-900">
+        <div className="hidden rounded-lg border border-slate-300 bg-white p-0.5 dark:border-slate-700 dark:bg-slate-900 md:flex">
           <button
             onClick={() => changeView('table')}
             className={`rounded-md p-2 transition ${
@@ -218,13 +223,16 @@ export default function LoansPage() {
         />
       ) : view === 'table' ? (
         <Card padded={false} className="overflow-hidden">
-          <table className="w-full">
+          <div className="overflow-x-auto">
+          <table className="w-full min-w-[640px]">
             <thead className="bg-slate-50 dark:bg-slate-900 dark:bg-slate-800">
               <tr>
                 {['Reference', 'Amount', 'Term', 'Rate', 'Status', 'Submitted'].map((h) => (
                   <th
                     key={h}
-                    className="px-5 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400"
+                    className={`px-3 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400 sm:px-5 ${
+                      h === 'Term' || h === 'Rate' ? 'hidden sm:table-cell' : ''
+                    }`}
                   >
                     {h}
                   </th>
@@ -239,7 +247,7 @@ export default function LoansPage() {
                   animate={{ opacity: 1 }}
                   className="cursor-pointer transition hover:bg-brand-50/30 dark:hover:bg-brand-500/5"
                 >
-                  <td className="px-5 py-3.5">
+                  <td className="px-3 py-3.5 sm:px-5">
                     <Link
                       href={`/loans/${l.id}`}
                       className="font-mono text-sm font-medium text-slate-900 dark:text-white hover:text-brand-700 dark:text-white dark:hover:text-brand-400"
@@ -250,13 +258,13 @@ export default function LoansPage() {
                   <td className="px-5 py-3.5 text-sm tabular-nums text-slate-700 dark:text-slate-200 dark:text-slate-300">
                     {formatMoney(l.amount, l.currency)}
                   </td>
-                  <td className="px-5 py-3.5 text-sm text-slate-600 dark:text-slate-300 dark:text-slate-400">
+                  <td className="hidden px-3 py-3.5 text-sm text-slate-600 sm:table-cell sm:px-5 dark:text-slate-400">
                     {l.termMonths} mo
                   </td>
-                  <td className="px-5 py-3.5 text-sm tabular-nums text-slate-600 dark:text-slate-300 dark:text-slate-400">
+                  <td className="hidden px-3 py-3.5 text-sm tabular-nums text-slate-600 sm:table-cell sm:px-5 dark:text-slate-400">
                     {formatPercent(l.interestRate, 2)}
                   </td>
-                  <td className="px-5 py-3.5">
+                  <td className="px-3 py-3.5 sm:px-5">
                     <LoanStatusBadge status={l.status} />
                   </td>
                   <td className="px-5 py-3.5 text-xs text-slate-500 dark:text-slate-400 dark:text-slate-500">
@@ -266,9 +274,10 @@ export default function LoansPage() {
               ))}
             </tbody>
           </table>
+          </div>
         </Card>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           {filtered.map((l) => (
             <Link key={l.id} href={`/loans/${l.id}`}>
               <Card className="h-full transition hover:border-brand-300 hover:shadow-md dark:hover:border-brand-700">
@@ -278,7 +287,7 @@ export default function LoansPage() {
                   </span>
                   <LoanStatusBadge status={l.status} />
                 </div>
-                <p className="mt-4 text-2xl font-semibold tabular-nums text-slate-900 dark:text-white dark:text-white">
+                <p className="mt-3 text-xl font-semibold tabular-nums text-slate-900 sm:mt-4 sm:text-2xl dark:text-white">
                   {formatMoney(l.amount, l.currency)}
                 </p>
                 <div className="mt-3 flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 dark:text-slate-400">

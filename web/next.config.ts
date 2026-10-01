@@ -1,17 +1,8 @@
 import type { NextConfig } from 'next';
 
-const BACKEND_URL = process.env.BACKEND_URL ?? 'http://localhost:8080';
-
-const nextConfig: NextConfig = {
-  async rewrites() {
-    return [
-      // Proxy every /api/* request to the Spring Boot backend
-      {
-        source: '/api/:path*',
-        destination: `${BACKEND_URL}/api/:path*`,
-      },
-    ];
-  },
-};
+// BFF route handlers under src/app/api/**/*.ts already proxy to the backend
+// with cookie → Authorization translation. Do NOT add a /api/* rewrite here —
+// it would shadow the route handlers and forward requests to Spring with no token.
+const nextConfig: NextConfig = {};
 
 export default nextConfig;

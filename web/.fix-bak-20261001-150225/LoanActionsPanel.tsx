@@ -13,7 +13,6 @@ import { SuccessModal } from '@/components/ui/SuccessModal';
 import { Textarea } from '@/components/ui/Textarea';
 import { Input } from '@/components/ui/Input';
 import { notify } from '@/lib/toast';
-import { fetchWithRefresh } from '@/lib/fetch-with-refresh';
 import type { Loan, Role } from '@/lib/types';
 import { PERMISSIONS } from '@/lib/permissions';
 import { formatMoney } from '@/lib/format';
@@ -50,7 +49,7 @@ export function LoanActionsPanel({ loan, roles: _roles, permissions }: LoanActio
   async function call(path: string, body: unknown, onOk: () => void, key: string, errorTitle: string) {
     setBusy(key);
     try {
-      const r = await fetchWithRefresh(path, {
+      const r = await fetch(path, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),

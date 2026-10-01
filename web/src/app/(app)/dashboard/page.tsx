@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -68,7 +69,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-700 via-brand-600 to-cyan-600 px-8 py-10 text-white shadow-xl">
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-700 via-brand-600 to-cyan-600 px-5 py-7 text-white shadow-xl sm:px-8 sm:py-10">
         <div className="pointer-events-none absolute inset-0 opacity-[0.07]"
           style={{
             backgroundImage:
@@ -77,11 +78,11 @@ export default async function DashboardPage() {
           }}
         />
         <div className="relative z-10 max-w-xl">
-          <p className="text-sm font-medium text-brand-100">Karibu tena</p>
+          <p className="text-xs font-medium uppercase tracking-wider text-white/70 sm:text-sm sm:normal-case sm:tracking-normal sm:text-brand-100">Karibu tena</p>
           <h1 className="mt-1 text-3xl font-semibold tracking-tight">
             {greeting}, {firstName}
           </h1>
-          <p className="mt-2 text-sm text-brand-50/80">
+          <p className="mt-2 text-sm text-white/85 sm:text-[15px]">
             {isStaff
               ? 'Staff access — manage the queue, disburse funds, and monitor the portfolio.'
               : 'Track your loans, apply for new ones, and manage your account.'}
@@ -89,28 +90,28 @@ export default async function DashboardPage() {
           <div className="mt-6 flex flex-wrap gap-2.5">
             {canViewOwn && (
               <Link href="/loans">
-                <Button className="border-0 bg-white dark:bg-slate-800 text-brand-700 hover:bg-brand-50 shadow-sm" leftIcon={<BanknotesIcon className="h-4 w-4" />}>
+                <Button className="border-0 !bg-white !text-slate-900 hover:!bg-brand-50 shadow-sm font-semibold dark:!bg-white dark:!text-slate-900" leftIcon={<BanknotesIcon className="h-4 w-4" />}>
                   My Loans
                 </Button>
               </Link>
             )}
             {canCreate && (
               <Link href="/loans/new">
-                <Button className="border border-white/30 bg-white dark:bg-slate-800/10 text-white hover:bg-white/20 backdrop-blur">
+                <Button className="border border-white/40 !bg-white/10 !text-white hover:!bg-white/20 backdrop-blur font-semibold">
                   Apply for a Loan
                 </Button>
               </Link>
             )}
             {canReview && (
               <Link href="/officer/queue">
-                <Button className="border border-white/30 bg-white dark:bg-slate-800/10 text-white hover:bg-white/20 backdrop-blur">
+                <Button className="border border-white/40 !bg-white/10 !text-white hover:!bg-white/20 backdrop-blur font-semibold">
                   Review Queue
                 </Button>
               </Link>
             )}
             {canDisburse && (
               <Link href="/officer/disburse">
-                <Button className="border border-white/30 bg-white dark:bg-slate-800/10 text-white hover:bg-white/20 backdrop-blur">
+                <Button className="border border-white/40 !bg-white/10 !text-white hover:!bg-white/20 backdrop-blur font-semibold">
                   Disbursements
                 </Button>
               </Link>
@@ -220,29 +221,39 @@ function KpiTile({
   };
   const t = tones[tone];
   return (
-    <Card padded className={`bg-gradient-to-br ${t.bg}`}>
-      <div className="flex items-start justify-between">
-        <p className="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">{label}</p>
-        <span className={t.text}>{icon}</span>
+    <Card padded={false} className={`!p-3 bg-gradient-to-br sm:!p-5 ${t.bg}`}>
+      <div className="flex items-start justify-between gap-2">
+        <p className="text-[10px] font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400 sm:text-xs">
+          {label}
+        </p>
+        <span className={cn('shrink-0 [&_svg]:h-4 [&_svg]:w-4 sm:[&_svg]:h-5 sm:[&_svg]:w-5', t.text)}>
+          {icon}
+        </span>
       </div>
-      <p className="mt-3 text-2xl font-semibold tabular-nums text-slate-900 dark:text-white">
+      <p className="mt-1.5 text-base font-semibold leading-tight tabular-nums text-slate-900 dark:text-white sm:mt-3 sm:text-2xl">
         <CountUpNumber value={value} mode={mode} currency={currency} />
       </p>
-      <div className={`pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full blur-2xl ${t.blob}`} />
+      <div className={`pointer-events-none absolute -right-6 -top-6 h-16 w-16 rounded-full blur-2xl sm:h-24 sm:w-24 ${t.blob}`} />
     </Card>
   );
 }
 
 function QuickTile({ href, title, description, icon }: { href: string; title: string; description: string; icon: React.ReactNode }) {
   return (
-    <Link href={href}>
-      <Card className="group h-full transition hover:border-brand-300 hover:shadow-md">
-        <div className="flex items-start gap-3">
-          <div className="grid h-10 w-10 place-items-center rounded-xl bg-brand-50 text-brand-600">{icon}</div>
-          <div className="flex-1">
-            <h3 className="text-sm font-semibold text-slate-900 dark:text-white">{title}</h3>
-            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{description}</p>
-            <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-brand-600 group-hover:text-brand-700">
+    <Link href={href} className="block h-full">
+      <Card padded={false} className="group h-full !p-3.5 transition hover:border-brand-300 hover:shadow-md sm:!p-5">
+        <div className="flex items-start gap-2.5 sm:gap-3">
+          <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-600 sm:h-10 sm:w-10 sm:rounded-xl">
+            {icon}
+          </div>
+          <div className="min-w-0 flex-1">
+            <h3 className="text-[13px] font-semibold text-slate-900 dark:text-white sm:text-sm">
+              {title}
+            </h3>
+            <p className="mt-0.5 text-[11.5px] leading-snug text-slate-500 dark:text-slate-400 sm:mt-1 sm:text-xs">
+              {description}
+            </p>
+            <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-medium text-brand-600 group-hover:text-brand-700 sm:mt-3 sm:text-xs">
               Open <ArrowRightIcon className="h-3 w-3" />
             </span>
           </div>

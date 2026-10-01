@@ -7,7 +7,7 @@ import {
 
 const BACKEND_URL = process.env.BACKEND_URL ?? 'http://localhost:8080';
 
-// Serialize refresh attempts — prevents races with rotating tokens
+// Serialize refresh attempts — prevents race conditions with rotating tokens
 let inFlight: Promise<Response> | null = null;
 
 export async function POST(_request: NextRequest) {
@@ -15,10 +15,7 @@ export async function POST(_request: NextRequest) {
   const refreshToken = store.get(REFRESH_COOKIE)?.value;
 
   if (!refreshToken) {
-    const r = NextResponse.json({ error: 'No refresh token' }, { status: 401 });
-    r.cookies.delete(ACCESS_COOKIE);
-    r.cookies.delete(REFRESH_COOKIE);
-    return r;
+    return NextResponse.json({ error: 'No refresh token' }, { status: 401 });
   }
 
   try {
@@ -34,10 +31,9 @@ export async function POST(_request: NextRequest) {
     const backend = await inFlight;
 
     if (!backend.ok) {
-      const r = NextResponse.json({ error: 'Refresh failed' }, { status: 401 });
-      r.cookies.delete(ACCESS_COOKIE);
-      r.cookies.delete(REFRESH_COOKIE);
-      return r;
+      store.delete(ACCESS_COOKIE);
+      store.delete(REFRESH_COOKIE);
+      return NextResponse.json({ error: 'Refresh failed' }, { status: 401 });
     }
 
     const data = await backend.json();
@@ -46,11 +42,10 @@ export async function POST(_request: NextRequest) {
       refresh_token: string;
     };
 
-    // Set cookies on the outgoing response so the browser commits them
-    const response = NextResponse.json({ ok: true });
-    response.cookies.set(ACCESS_COOKIE, access_token, accessCookieOptions);
-    response.cookies.set(REFRESH_COOKIE, newRefresh, refreshCookieOptions);
-    return response;
+    store.set(ACCESS_COOKIE, access_token, accessCookieOptions);
+    store.set(REFRESH_COOKIE, newRefresh, refreshCookieOptions);
+
+    return NextResponse.json({ ok: true });
   } catch (err) {
     console.error('[refresh] error', err);
     return NextResponse.json({ error: 'Internal error' }, { status: 500 });
